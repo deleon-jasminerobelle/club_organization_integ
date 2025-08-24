@@ -33,3 +33,7 @@ Route::get('/api-test', [AuthController::class, 'testApiConnection']);
 Route::get('/index', function () {
     return view('index');
 });
+
+Route::get('/club', function() {
+    return view('club');
+});
