@@ -34,6 +34,11 @@ Route::get('/index', function () {
     return view('index');
 });
 
+// New route for gallery page
+Route::get('/gallery', function () {
+    return view('gallery');
+});
+
 Route::get('/club', function() {
     return view('club');
 });
