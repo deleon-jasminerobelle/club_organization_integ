@@ -22,6 +22,10 @@ use App\Http\Controllers\AuthController;
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+Route::get('/signup', function () {
+    return view('signup');
+});
+
 // API test route for debugging
 Route::get('/api-test', [AuthController::class, 'testApiConnection']);
 
