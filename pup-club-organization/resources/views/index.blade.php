@@ -266,6 +266,128 @@
         </div>
     </section>
 
+    <!-- News & Media Section -->
+    <section id="news-media" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-maroon mb-4">News & Media</h2>
+                <p class="text-xl text-gray-600">Stay updated with the latest campus happenings and events</p>
+            </div>
+
+            <!-- Interactive Slideshow -->
+            <div class="relative max-w-6xl mx-auto">
+                <!-- Slideshow Container -->
+                <div class="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+                    <!-- Slides -->
+                    <div class="slideshow-container h-full">
+                        <!-- Slide 1 -->
+                        <div class="slide fade">
+                            <div class="absolute inset-0 bg-gradient-to-r from-maroon/90 to-maroon/60"></div>
+                            <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                                 alt="Campus Event" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                                <h3 class="text-2xl md:text-3xl font-bold mb-2">Annual Tech Conference 2024</h3>
+                                <p class="text-lg mb-4">Join us for the biggest technology event of the year featuring industry experts and workshops</p>
+                                <span class="bg-gold text-maroon px-4 py-2 rounded-full text-sm font-semibold">March 15, 2024</span>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="slide fade">
+                            <div class="absolute inset-0 bg-gradient-to-r from-maroon/90 to-maroon/60"></div>
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                                 alt="Student Activities" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                                <h3 class="text-2xl md:text-3xl font-bold mb-2">Student Leadership Summit</h3>
+                                <p class="text-lg mb-4">Developing future leaders through workshops and networking opportunities</p>
+                                <span class="bg-gold text-maroon px-4 py-2 rounded-full text-sm font-semibold">April 10, 2024</span>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="slide fade">
+                            <div class="absolute inset-0 bg-gradient-to-r from-maroon/90 to-maroon/60"></div>
+                            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                                 alt="Cultural Festival" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                                <h3 class="text-2xl md:text-3xl font-bold mb-2">Cultural Diversity Festival</h3>
+                                <p class="text-lg mb-4">Celebrating diversity with performances, food, and cultural exhibitions</p>
+                                <span class="bg-gold text-maroon px-4 py-2 rounded-full text-sm font-semibold">May 20, 2024</span>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4 -->
+                        <div class="slide fade">
+                            <div class="absolute inset-0 bg-gradient-to-r from-maroon/90 to-maroon/60"></div>
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                                 alt="Sports Tournament" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                                <h3 class="text-2xl md:text-3xl font-bold mb-2">Inter-College Sports Championship</h3>
+                                <p class="text-lg mb-4">Witness the best athletes compete in various sports competitions</p>
+                                <span class="bg-gold text-maroon px-4 py-2 rounded-full text-sm font-semibold">June 5, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Arrows -->
+                    <button class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 prev-btn">
+                        <i class="fas fa-chevron-left text-xl"></i>
+                    </button>
+                    <button class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 next-btn">
+                        <i class="fas fa-chevron-right text-xl"></i>
+                    </button>
+
+                    <!-- Dots Indicator -->
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                        <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+                        <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+                        <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+                        <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+                    </div>
+                </div>
+
+                <!-- News Grid Below Slideshow -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                    <!-- News Card 1 -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                        <div class="w-12 h-12 bg-maroon rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-newspaper text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-maroon mb-3">New Club Launches</h3>
+                        <p class="text-gray-600 mb-4">Three new student organizations have been approved this semester...</p>
+                        <a href="#" class="text-maroon hover:text-red-800 font-semibold flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+
+                    <!-- News Card 2 -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                        <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-trophy text-maroon"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-maroon mb-3">Award Winners</h3>
+                        <p class="text-gray-600 mb-4">Our students won 5 awards at the regional competition...</p>
+                        <a href="#" class="text-maroon hover:text-red-800 font-semibold flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+
+                    <!-- News Card 3 -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                        <div class="w-12 h-12 bg-maroon rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-calendar text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-maroon mb-3">Upcoming Events</h3>
+                        <p class="text-gray-600 mb-4">Mark your calendars for these exciting events happening next month...</p>
+                        <a href="#" class="text-maroon hover:text-red-800 font-semibold flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-maroon text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -376,7 +498,97 @@
                 el.classList.add('visible');
             });
             animateCounter();
+            initSlideshow();
         });
+
+        // Interactive Slideshow Functionality
+        function initSlideshow() {
+            let slideIndex = 0;
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+
+            // Show specific slide
+            function showSlide(n) {
+                if (n >= slides.length) slideIndex = 0;
+                if (n < 0) slideIndex = slides.length - 1;
+                
+                slides.forEach(slide => slide.style.display = 'none');
+                dots.forEach(dot => dot.classList.remove('bg-white'));
+                
+                slides[slideIndex].style.display = 'block';
+                dots[slideIndex].classList.add('bg-white');
+            }
+
+            // Next/previous controls
+            function plusSlides(n) {
+                showSlide(slideIndex += n);
+            }
+
+            // Thumbnail image controls
+            function currentSlide(n) {
+                showSlide(slideIndex = n);
+            }
+
+            // Auto-advance slides
+            function autoSlide() {
+                plusSlides(1);
+                setTimeout(autoSlide, 5000); // Change slide every 5 seconds
+            }
+
+            // Event listeners
+            prevBtn.addEventListener('click', () => plusSlides(-1));
+            nextBtn.addEventListener('click', () => plusSlides(1));
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => currentSlide(index));
+            });
+
+            // Initialize slideshow
+            showSlide(slideIndex);
+            setTimeout(autoSlide, 5000); // Start auto-slide after 5 seconds
+
+            // Pause on hover
+            const slideshowContainer = document.querySelector('.slideshow-container');
+            slideshowContainer.addEventListener('mouseenter', () => {
+                clearTimeout(autoSlide);
+            });
+            
+            slideshowContainer.addEventListener('mouseleave', () => {
+                setTimeout(autoSlide, 3000); // Resume after 3 seconds
+            });
+        }
+
+        // Add slideshow styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .slide {
+                display: none;
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+            
+            .slide.fade {
+                animation: fade 1.5s ease-in-out;
+            }
+            
+            @keyframes fade {
+                from { opacity: 0.4; }
+                to { opacity: 1; }
+            }
+            
+            .dot.active {
+                background-color: #ffffff !important;
+                transform: scale(1.2);
+            }
+            
+            .slideshow-container {
+                position: relative;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
