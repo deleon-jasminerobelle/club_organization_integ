@@ -1,32 +1,92 @@
 <?php
- /* paki change nalang dito */
+ /* paki change nalang ng org, photos, events and achievements dito */
 $organizations = [
     "Organization A" => [
-        ["type" => "Photo", "title" => "Tree Planting", "date" => "Oct 2025", "img" => "tree.jpg", "details" => "Captured moments of volunteers."],
+        // Photos
+        ["type" => "Photo", "title" => "Tree Planting", "date" => "Oct 2025", "img" => "tree1.jpg", "details" => "Captured moments of volunteers."],
+        ["type" => "Photo", "title" => "Beach Clean-Up", "date" => "Sep 2025", "img" => "beach.jpg", "details" => "Students cleaning the shorelines."],
+        ["type" => "Photo", "title" => "Medical Mission", "date" => "Aug 2025", "img" => "medical.jpg", "details" => "Doctors and students working together."],
+        ["type" => "Photo", "title" => "Charity Drive", "date" => "Aug 2025", "img" => "charity.jpg", "details" => "Distribution of goods to families."],
+        ["type" => "Photo", "title" => "Environmental Talk", "date" => "Jul 2025", "img" => "talk.jpg", "details" => "Seminar on environmental care."],
+
+        // Events
         ["type" => "Event", "title" => "Community Clean-Up", "date" => "Sep 2025", "img" => "cleanup.jpg", "details" => "An organized barangay clean-up drive."],
-        ["type" => "Achievement", "title" => "Best Outreach Award", "date" => "2025", "img" => "award.jpg", "details" => "Recognized for outreach programs."]
+        ["type" => "Event", "title" => "Blood Donation Drive", "date" => "Aug 2025", "img" => "blood_donation.jpg", "details" => "Encouraging students to donate blood."],
+
+        // Achievements
+        ["type" => "Achievement", "title" => "Best Outreach Award", "date" => "2025", "img" => "award.jpg", "details" => "Recognized for outreach programs."],
+        ["type" => "Achievement", "title" => "Green Campus Initiative", "date" => "2025", "img" => "green.jpg", "details" => "Awarded for environmental efforts."]
     ],
+
     "Organization B" => [
-        ["type" => "Photo", "title" => "Sports Fest", "date" => "Aug 2025", "img" => "sports.jpg", "details" => "Basketball team action shots."],
+        // Photos
+        ["type" => "Photo", "title" => "Sports Fest", "date" => "Aug 2025", "img" => "sports1.jpg", "details" => "Basketball team action shots."],
+        ["type" => "Photo", "title" => "Volleyball Game", "date" => "Aug 2025", "img" => "volleyball.jpg", "details" => "Intense volleyball championship match."],
+        ["type" => "Photo", "title" => "Track & Field", "date" => "Jul 2025", "img" => "track.jpg", "details" => "Running competition highlights."],
+        ["type" => "Photo", "title" => "Swimming Gala", "date" => "Jul 2025", "img" => "swim.jpg", "details" => "Medal-winning swimmers."],
+        ["type" => "Photo", "title" => "Opening Parade", "date" => "Jul 2025", "img" => "parade.jpg", "details" => "Grand parade of athletes."],
+
+        // Events
         ["type" => "Event", "title" => "Inter-University Sports Fest", "date" => "Aug 2025", "img" => "interuni.jpg", "details" => "Annual sports festival event."],
-        ["type" => "Achievement", "title" => "Champion - Debate", "date" => "2025", "img" => "debate.jpg", "details" => "Won 1st place in debate competition."]
+        ["type" => "Event", "title" => "Wellness Fair", "date" => "Jul 2025", "img" => "wellness.jpg", "details" => "Promoting health and fitness in the campus."],
+
+        // Achievements
+        ["type" => "Achievement", "title" => "Champion - Debate", "date" => "2025", "img" => "debate.jpg", "details" => "Won 1st place in debate competition."],
+        ["type" => "Achievement", "title" => "Sports Excellence Award", "date" => "2025", "img" => "sports_award.jpg", "details" => "Awarded for outstanding athletic performance."]
     ],
+
     "Organization C" => [
-        ["type" => "Photo", "title" => "Cultural Night", "date" => "Jul 2025", "img" => "culture.jpg", "details" => "Students showcasing talents."],
-        ["type" => "Event", "title" => "Dance Competition", "date" => "Jun 2025", "img" => "dance.jpg", "details" => "Inter-org dance competition."],
-        ["type" => "Achievement", "title" => "Best Cultural Event", "date" => "2025", "img" => "culture_award.jpg", "details" => "Awarded for cultural contributions."]
+        // Photos
+        ["type" => "Photo", "title" => "Art Exhibit", "date" => "Jul 2025", "img" => "art1.jpg", "details" => "Students showcasing creative artworks."],
+        ["type" => "Photo", "title" => "Painting Session", "date" => "Jul 2025", "img" => "painting.jpg", "details" => "Workshop on painting techniques."],
+        ["type" => "Photo", "title" => "Sculpture Display", "date" => "Jun 2025", "img" => "sculpture.jpg", "details" => "3D artworks by fine arts students."],
+        ["type" => "Photo", "title" => "Photography Contest", "date" => "Jun 2025", "img" => "photo_contest.jpg", "details" => "Best photography entries of the year."],
+        ["type" => "Photo", "title" => "Creative Workshop", "date" => "May 2025", "img" => "workshop.jpg", "details" => "Training on creativity and design."],
+
+        // Events
+        ["type" => "Event", "title" => "Art Festival", "date" => "Jul 2025", "img" => "festival.jpg", "details" => "Campus-wide festival for arts."],
+        ["type" => "Event", "title" => "Culture Night", "date" => "Jun 2025", "img" => "culture.jpg", "details" => "Cultural performances and traditions."],
+
+        // Achievements
+        ["type" => "Achievement", "title" => "Best Art Exhibit Award", "date" => "2025", "img" => "exhibit_award.jpg", "details" => "Recognized for creativity in arts."],
+        ["type" => "Achievement", "title" => "Cultural Contribution Award", "date" => "2025", "img" => "culture_award.jpg", "details" => "Awarded for promoting culture and traditions."]
     ],
+
     "Organization D" => [
-        ["type" => "Photo", "title" => "Workshop Day", "date" => "May 2025", "img" => "workshop.jpg", "details" => "Hands-on skill-building."],
-        ["type" => "Event", "title" => "Tech Seminar", "date" => "May 2025", "img" => "seminar.jpg", "details" => "Guest speakers on technology."],
-        ["type" => "Achievement", "title" => "Innovation Award", "date" => "2025", "img" => "innovation.jpg", "details" => "Recognized for innovation."]
+        // Photos
+        ["type" => "Photo", "title" => "Coding Bootcamp", "date" => "Aug 2025", "img" => "bootcamp.jpg", "details" => "Students learning full-stack dev."],
+        ["type" => "Photo", "title" => "Hackathon", "date" => "Jul 2025", "img" => "hackathon.jpg", "details" => "Teams solving tech challenges."],
+        ["type" => "Photo", "title" => "Robotics Demo", "date" => "Jul 2025", "img" => "robotics.jpg", "details" => "Showcasing student-built robots."],
+        ["type" => "Photo", "title" => "AI Seminar", "date" => "Jun 2025", "img" => "ai.jpg", "details" => "Introduction to artificial intelligence."],
+        ["type" => "Photo", "title" => "Tech Fair", "date" => "Jun 2025", "img" => "techfair.jpg", "details" => "Campus-wide innovation showcase."],
+
+        // Events
+        ["type" => "Event", "title" => "National Hackathon", "date" => "Aug 2025", "img" => "nationhack.jpg", "details" => "Biggest coding challenge of the year."],
+        ["type" => "Event", "title" => "IT Summit", "date" => "Jul 2025", "img" => "summit.jpg", "details" => "Annual summit on latest tech trends."],
+
+        // Achievements
+        ["type" => "Achievement", "title" => "Hackathon Champions", "date" => "2025", "img" => "champions.jpg", "details" => "Won 1st place at national hackathon."],
+        ["type" => "Achievement", "title" => "Innovation Award", "date" => "2025", "img" => "innovation.jpg", "details" => "Recognized for breakthrough project."]
     ],
+
     "Organization E" => [
-        ["type" => "Photo", "title" => "Outreach Photos", "date" => "Apr 2025", "img" => "outreach_photos.jpg", "details" => "Snapshots from outreach."],
-        ["type" => "Event", "title" => "Community Outreach", "date" => "Apr 2025", "img" => "outreach.jpg", "details" => "Helping local communities."],
-        ["type" => "Achievement", "title" => "Service Excellence", "date" => "2025", "img" => "service.jpg", "details" => "Excellence in community service."]
-    ]
+        // Photos
+        ["type" => "Photo", "title" => "Choir Practice", "date" => "Jul 2025", "img" => "choir.jpg", "details" => "Choir rehearsing for big performance."],
+        ["type" => "Photo", "title" => "Theater Play", "date" => "Jul 2025", "img" => "theater.jpg", "details" => "Drama club presenting a play."],
+        ["type" => "Photo", "title" => "Dance Competition", "date" => "Jun 2025", "img" => "dance.jpg", "details" => "Dance group performing on stage."],
+        ["type" => "Photo", "title" => "Music Night", "date" => "Jun 2025", "img" => "music.jpg", "details" => "Live music performance by band."],
+        ["type" => "Photo", "title" => "Stage Performance", "date" => "May 2025", "img" => "stage.jpg", "details" => "Full production stage play."],
+
+        // Events
+        ["type" => "Event", "title" => "Cultural Show", "date" => "Jul 2025", "img" => "show.jpg", "details" => "Cultural performance with music and dance."],
+        ["type" => "Event", "title" => "Drama Festival", "date" => "Jun 2025", "img" => "festivaldrama.jpg", "details" => "Festival for aspiring stage actors."],
+
+        // Achievements
+        ["type" => "Achievement", "title" => "Best Performance Award", "date" => "2025", "img" => "performance_award.jpg", "details" => "Awarded for outstanding stage play."],
+        ["type" => "Achievement", "title" => "Cultural Excellence Award", "date" => "2025", "img" => "cultural_award.jpg", "details" => "Recognized for promoting performing arts."]
+    ],
 ];
+
 
 
 $filter = $_GET['filter'] ?? 'All';
