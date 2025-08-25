@@ -1,235 +1,253 @@
-<?php
- /* paki change nalang ng org, photos, events and achievements dito */
-$organizations = [
-    "Organization A" => [
-        // Photos
-        ["type" => "Photo", "title" => "Tree Planting", "date" => "Oct 2025", "img" => "tree1.jpg", "details" => "Captured moments of volunteers."],
-        ["type" => "Photo", "title" => "Beach Clean-Up", "date" => "Sep 2025", "img" => "beach.jpg", "details" => "Students cleaning the shorelines."],
-        ["type" => "Photo", "title" => "Medical Mission", "date" => "Aug 2025", "img" => "medical.jpg", "details" => "Doctors and students working together."],
-        ["type" => "Photo", "title" => "Charity Drive", "date" => "Aug 2025", "img" => "charity.jpg", "details" => "Distribution of goods to families."],
-        ["type" => "Photo", "title" => "Environmental Talk", "date" => "Jul 2025", "img" => "talk.jpg", "details" => "Seminar on environmental care."],
-
-        // Events
-        ["type" => "Event", "title" => "Community Clean-Up", "date" => "Sep 2025", "img" => "cleanup.jpg", "details" => "An organized barangay clean-up drive."],
-        ["type" => "Event", "title" => "Blood Donation Drive", "date" => "Aug 2025", "img" => "blood_donation.jpg", "details" => "Encouraging students to donate blood."],
-
-        // Achievements
-        ["type" => "Achievement", "title" => "Best Outreach Award", "date" => "2025", "img" => "award.jpg", "details" => "Recognized for outreach programs."],
-        ["type" => "Achievement", "title" => "Green Campus Initiative", "date" => "2025", "img" => "green.jpg", "details" => "Awarded for environmental efforts."]
-    ],
-
-    "Organization B" => [
-        // Photos
-        ["type" => "Photo", "title" => "Sports Fest", "date" => "Aug 2025", "img" => "sports1.jpg", "details" => "Basketball team action shots."],
-        ["type" => "Photo", "title" => "Volleyball Game", "date" => "Aug 2025", "img" => "volleyball.jpg", "details" => "Intense volleyball championship match."],
-        ["type" => "Photo", "title" => "Track & Field", "date" => "Jul 2025", "img" => "track.jpg", "details" => "Running competition highlights."],
-        ["type" => "Photo", "title" => "Swimming Gala", "date" => "Jul 2025", "img" => "swim.jpg", "details" => "Medal-winning swimmers."],
-        ["type" => "Photo", "title" => "Opening Parade", "date" => "Jul 2025", "img" => "parade.jpg", "details" => "Grand parade of athletes."],
-
-        // Events
-        ["type" => "Event", "title" => "Inter-University Sports Fest", "date" => "Aug 2025", "img" => "interuni.jpg", "details" => "Annual sports festival event."],
-        ["type" => "Event", "title" => "Wellness Fair", "date" => "Jul 2025", "img" => "wellness.jpg", "details" => "Promoting health and fitness in the campus."],
-
-        // Achievements
-        ["type" => "Achievement", "title" => "Champion - Debate", "date" => "2025", "img" => "debate.jpg", "details" => "Won 1st place in debate competition."],
-        ["type" => "Achievement", "title" => "Sports Excellence Award", "date" => "2025", "img" => "sports_award.jpg", "details" => "Awarded for outstanding athletic performance."]
-    ],
-
-    "Organization C" => [
-        // Photos
-        ["type" => "Photo", "title" => "Art Exhibit", "date" => "Jul 2025", "img" => "art1.jpg", "details" => "Students showcasing creative artworks."],
-        ["type" => "Photo", "title" => "Painting Session", "date" => "Jul 2025", "img" => "painting.jpg", "details" => "Workshop on painting techniques."],
-        ["type" => "Photo", "title" => "Sculpture Display", "date" => "Jun 2025", "img" => "sculpture.jpg", "details" => "3D artworks by fine arts students."],
-        ["type" => "Photo", "title" => "Photography Contest", "date" => "Jun 2025", "img" => "photo_contest.jpg", "details" => "Best photography entries of the year."],
-        ["type" => "Photo", "title" => "Creative Workshop", "date" => "May 2025", "img" => "workshop.jpg", "details" => "Training on creativity and design."],
-
-        // Events
-        ["type" => "Event", "title" => "Art Festival", "date" => "Jul 2025", "img" => "festival.jpg", "details" => "Campus-wide festival for arts."],
-        ["type" => "Event", "title" => "Culture Night", "date" => "Jun 2025", "img" => "culture.jpg", "details" => "Cultural performances and traditions."],
-
-        // Achievements
-        ["type" => "Achievement", "title" => "Best Art Exhibit Award", "date" => "2025", "img" => "exhibit_award.jpg", "details" => "Recognized for creativity in arts."],
-        ["type" => "Achievement", "title" => "Cultural Contribution Award", "date" => "2025", "img" => "culture_award.jpg", "details" => "Awarded for promoting culture and traditions."]
-    ],
-
-    "Organization D" => [
-        // Photos
-        ["type" => "Photo", "title" => "Coding Bootcamp", "date" => "Aug 2025", "img" => "bootcamp.jpg", "details" => "Students learning full-stack dev."],
-        ["type" => "Photo", "title" => "Hackathon", "date" => "Jul 2025", "img" => "hackathon.jpg", "details" => "Teams solving tech challenges."],
-        ["type" => "Photo", "title" => "Robotics Demo", "date" => "Jul 2025", "img" => "robotics.jpg", "details" => "Showcasing student-built robots."],
-        ["type" => "Photo", "title" => "AI Seminar", "date" => "Jun 2025", "img" => "ai.jpg", "details" => "Introduction to artificial intelligence."],
-        ["type" => "Photo", "title" => "Tech Fair", "date" => "Jun 2025", "img" => "techfair.jpg", "details" => "Campus-wide innovation showcase."],
-
-        // Events
-        ["type" => "Event", "title" => "National Hackathon", "date" => "Aug 2025", "img" => "nationhack.jpg", "details" => "Biggest coding challenge of the year."],
-        ["type" => "Event", "title" => "IT Summit", "date" => "Jul 2025", "img" => "summit.jpg", "details" => "Annual summit on latest tech trends."],
-
-        // Achievements
-        ["type" => "Achievement", "title" => "Hackathon Champions", "date" => "2025", "img" => "champions.jpg", "details" => "Won 1st place at national hackathon."],
-        ["type" => "Achievement", "title" => "Innovation Award", "date" => "2025", "img" => "innovation.jpg", "details" => "Recognized for breakthrough project."]
-    ],
-
-    "Organization E" => [
-        // Photos
-        ["type" => "Photo", "title" => "Choir Practice", "date" => "Jul 2025", "img" => "choir.jpg", "details" => "Choir rehearsing for big performance."],
-        ["type" => "Photo", "title" => "Theater Play", "date" => "Jul 2025", "img" => "theater.jpg", "details" => "Drama club presenting a play."],
-        ["type" => "Photo", "title" => "Dance Competition", "date" => "Jun 2025", "img" => "dance.jpg", "details" => "Dance group performing on stage."],
-        ["type" => "Photo", "title" => "Music Night", "date" => "Jun 2025", "img" => "music.jpg", "details" => "Live music performance by band."],
-        ["type" => "Photo", "title" => "Stage Performance", "date" => "May 2025", "img" => "stage.jpg", "details" => "Full production stage play."],
-
-        // Events
-        ["type" => "Event", "title" => "Cultural Show", "date" => "Jul 2025", "img" => "show.jpg", "details" => "Cultural performance with music and dance."],
-        ["type" => "Event", "title" => "Drama Festival", "date" => "Jun 2025", "img" => "festivaldrama.jpg", "details" => "Festival for aspiring stage actors."],
-
-        // Achievements
-        ["type" => "Achievement", "title" => "Best Performance Award", "date" => "2025", "img" => "performance_award.jpg", "details" => "Awarded for outstanding stage play."],
-        ["type" => "Achievement", "title" => "Cultural Excellence Award", "date" => "2025", "img" => "cultural_award.jpg", "details" => "Recognized for promoting performing arts."]
-    ],
-];
-
-
-
-$filter = $_GET['filter'] ?? 'All';
-$search = strtolower($_GET['search'] ?? '');
-?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery - Our Moments, Our Stories</title>
-  <style>
-    body { margin:0; font-family: Arial, sans-serif; }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gallery - PUP Clubs & Organizations</title>
+    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            scroll-behavior: smooth;
+        }
 
-    
-    .header {
-      position: relative;
-      height: 300px;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
-    }
-    .header::before {
-      content: "";
-      position: absolute;
-      top:0; left:0; right:0; bottom:0;
-      background: url("images/header-bg.jpg") no-repeat center center/cover;  /* paki change nalang ng image */
-      z-index: 1;
-    }
-    .header::after {
-      content: "";
-      position: absolute;
-      top:0; left:0; right:0; bottom:0;
-      background: rgba(75, 0, 0, 0.7);
-      z-index: 2;
-    }
-    .header-content {
-      position: relative;
-      z-index: 3;
-    }
-    .header-content h1 { margin:0; font-size:36px; }
-    .header-content p { margin:5px 0 0; font-size:18px; }
+        .maroon {
+            color: #800000;
+        }
 
-   
-    .filter-bar {
-      display:flex; justify-content:space-between; align-items:center;
-      gap:15px; padding:20px;
-      background:#f8f8f8; box-shadow:0 2px 4px rgba(0,0,0,0.1);
-    }
-    .filters a {
-      text-decoration:none; padding:10px 20px; border-radius:20px;
-      background:#ccc; font-weight:bold; color:black;
-    }
-    .filters a.active, .filters a:hover {
-      background:#800000; color:white;
-    }
-    .search-box input {
-      padding:10px 15px; border-radius:20px; border:1px solid #ccc;
-      width:200px;
-    }
+        .bg-maroon {
+            background-color: #800000;
+        }
 
-    
-    .organization { margin:30px; }
-    .organization h2 { color:#4b0000; border-bottom:2px solid #ccc; padding-bottom:5px; }
-    .gallery {
-      display:grid;
-      grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
-      gap:20px;
-      padding:20px 0;
-    }
-    .card {
-      background:#f0f0f0;
-      border-radius:5px;
-      box-shadow:2px 2px 5px #aaa;
-      overflow:hidden;
-    }
-    .card img { width:100%; height:180px; object-fit:cover; }
-    .card-footer { background:#4b0000; color:white; padding:15px; }
-    .card-footer h3 { margin:0; font-size:18px; }
-    .card-footer p { margin:5px 0 0; font-size:14px; }
-  </style>
+        .gold {
+            color: #FFD700;
+        }
+
+        .bg-gold {
+            background-color: #FFD700;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white backdrop-blur-sm shadow-lg z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <img src="{{ asset('images/pup_logo.png') }}" alt="PUP Logo" class="h-10 w-auto mr-2">
+                    <span class="text-lg font-semibold text-maroon">Clubs & Organizations</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+<a href="/index" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
+                    <a href="/#clubs" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a> 
+                    <a href="/#events" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
+                    <a href="/#news-media" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
+                    <a href="/gallery" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
+                    <a href="/#officers" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Officers</a>
+                    <a href="/#about" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
+                    <a href="/#contact" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Contact</a>
+                </div>
 
-  
-  <div class="header">
-    <div class="header-content">
-      <h1>Our Moments, Our Stories</h1>
-      <p>Capturing our journey through photos, events and achievements</p>
-    </div>
-  </div>
-
-  <div class="filter-bar">
-    <div class="filters">
-      <a href="?filter=All&search=<?= urlencode($search) ?>" class="<?= $filter=='All'?'active':'' ?>">All</a>
-      <a href="?filter=Photo&search=<?= urlencode($search) ?>" class="<?= $filter=='Photo'?'active':'' ?>">Photos</a>
-      <a href="?filter=Event&search=<?= urlencode($search) ?>" class="<?= $filter=='Event'?'active':'' ?>">Events</a>
-      <a href="?filter=Achievement&search=<?= urlencode($search) ?>" class="<?= $filter=='Achievement'?'active':'' ?>">Achievements</a>
-    </div>
-    <div class="search-box">
-      <form method="get" action="">
-        <input type="hidden" name="filter" value="<?= htmlspecialchars($filter) ?>">
-        <input type="text" name="search" placeholder="search..." value="<?= htmlspecialchars($search) ?>">
-      </form>
-    </div>
-  </div>
-
- 
-  <?php foreach ($organizations as $orgName => $items): ?>
-    <div class="organization">
-      <h2><?= $orgName ?></h2>
-      <div class="gallery">
-        <?php 
-        $hasContent = false;
-        foreach ($items as $item): 
-            
-            if ($filter != 'All' && strtolower($item['type']) != strtolower($filter)) continue;
-
-           
-            if ($search && strpos(strtolower($item['title']." ".$item['details']." ".$item['date']), $search) === false) continue;
-
-            $hasContent = true;
-        ?>
-          <div class="card">
-            <img src="images/<?= $item['img'] ?>" alt="<?= $item['title'] ?>">
-            <div class="card-footer">
-              <h3><?= $item['title'] ?></h3>
-              <p><?= $item['date'] ?></p>
-              <p><?= $item['details'] ?></p>
+                <div class="md:hidden">
+                    <button class="text-maroon focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
-          </div>
-        <?php endforeach; ?>
+        </div>
+    </nav>
 
-        <?php if (!$hasContent): ?>
-          <p style="color:gray;">No results found.</p>
-        <?php endif; ?>
-      </div>
+    <div class="min-h-screen bg-gray-50 pt-20">
+    <!-- Header Section -->
+    <div class="relative h-96 bg-maroon overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-maroon/90 to-maroon/60"></div>
+        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+             alt="Gallery Header" class="w-full h-full object-cover">
+        <div class="absolute inset-0 flex items-center justify-center text-center text-white">
+            <div class="max-w-4xl mx-auto px-4">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 font-playfair">Our Moments, Our Stories</h1>
+                <p class="text-xl md:text-2xl text-white/90">Capturing our journey through photos, events and achievements</p>
+            </div>
+        </div>
     </div>
-  <?php endforeach; ?>
 
+    <!-- Filter and Search Bar -->
+    <div class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap gap-3">
+                    <a href="?filter=All" class="px-6 py-3 rounded-full font-semibold bg-maroon text-white">
+                        All
+                    </a>
+                    <a href="?filter=Photo" class="px-6 py-3 rounded-full font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300">
+                        Photos
+                    </a>
+                    <a href="?filter=Event" class="px-6 py-3 rounded-full font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300">
+                        Events
+                    </a>
+                    <a href="?filter=Achievement" class="px-6 py-3 rounded-full font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300">
+                        Achievements
+                    </a>
+                </div>
+                <!-- Search Bar -->
+                <div class="flex-grow">
+                    <input type="text" placeholder="Search..." class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Sample gallery items -->
+            <div class="bg-white rounded-lg shadow-md card-hover">
+                <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                     alt="Tree Planting" class="w-full h-48 object-cover rounded-t-lg">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">Tree Planting</h3>
+                    <p class="text-gray-500">Oct 2025</p>
+                    <p class="text-gray-700">Captured moments of volunteers planting trees for environmental conservation.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md card-hover">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                     alt="Basketball Tournament" class="w-full h-48 object-cover rounded-t-lg">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">Basketball Tournament</h3>
+                    <p class="text-gray-500">Sep 2025</p>
+                    <p class="text-gray-700">Championship basketball game between student teams.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md card-hover">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                     alt="Art Exhibit" class="w-full h-48 object-cover rounded-t-lg">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">Art Exhibit</h3>
+                    <p class="text-gray-500">Jul 2025</p>
+                    <p class="text-gray-700">Students showcasing their creative artworks and talents.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md card-hover">
+                <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                     alt="Coding Bootcamp" class="w-full h-48 object-cover rounded-t-lg">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">Coding Bootcamp</h3>
+                    <p class="text-gray-500">Aug 2025</p>
+                    <p class="text-gray-700">Intensive programming workshop for aspiring developers.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md card-hover">
+                <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                     alt="Dance Performance" class="w-full h-48 object-cover rounded-t-lg">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">Dance Performance</h3>
+                    <p class="text-gray-500">Aug 2025</p>
+                    <p class="text-gray-700">Cultural dance presentation showcasing student talents.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md card-hover">
+                <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                     alt="Best Performance Award" class="w-full h-48 object-cover rounded-t-lg">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">Best Performance Award</h3>
+                    <p class="text-gray-500">2025</p>
+                    <p class="text-gray-700">Award for outstanding performance in cultural activities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll - Keep it white always
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Counter animation
+        function animateCounter() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / 100;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(() => animateCounter(counter), 20);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.classList.contains('counter')) {
+                        animateCounter();
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initialize animations on page load
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.classList.add('visible');
+            });
+            animateCounter();
+        });
+    </script>
 </body>
 </html>
