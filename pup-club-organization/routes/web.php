@@ -46,3 +46,8 @@ Route::get('/club', function() {
 Route::get('/news', function ()  {
     return view('news');
 });
+
+// Route for events page
+Route::get('/events', function ()  {
+    return view('events');
+});
