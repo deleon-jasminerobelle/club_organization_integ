@@ -42,3 +42,7 @@ Route::get('/gallery', function () {
 Route::get('/club', function() {
     return view('club');
 });
+
+Route::get('/news', function ()  {
+    return view('news');
+});
