@@ -15,36 +15,42 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = News::with(['organization', 'user'])
-            ->published()
-            ->orderBy('published_at', 'desc');
+        try {
+            $query = News::with(['organization', 'user'])
+                ->published()
+                ->orderBy('published_at', 'desc');
 
-        // Apply filters
-        if ($request->has('organization') && $request->organization) {
-            $query->where('organization_id', $request->organization);
+            // Apply filters
+            if ($request->has('organization') && $request->organization) {
+                $query->where('organization_id', $request->organization);
+            }
+
+            if ($request->has('type') && $request->type) {
+                $query->where('type', $request->type);
+            }
+
+            if ($request->has('search') && $request->search) {
+                $search = $request->search;
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                      ->orWhere('content', 'like', "%{$search}%")
+                      ->orWhere('excerpt', 'like', "%{$search}%");
+                });
+            }
+
+            $news = $query->paginate(12);
+            $latestNews = News::with(['organization'])
+                ->published()
+                ->orderBy('published_at', 'desc')
+                ->take(3)
+                ->get();
+            $organizations = Organization::all();
+        } catch (\Throwable $e) {
+            // Graceful fallback if database is not reachable
+            $news = collect([]);
+            $latestNews = collect([]);
+            $organizations = collect([]);
         }
-
-        if ($request->has('type') && $request->type) {
-            $query->where('type', $request->type);
-        }
-
-        if ($request->has('search') && $request->search) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('content', 'like', "%{$search}%")
-                  ->orWhere('excerpt', 'like', "%{$search}%");
-            });
-        }
-
-        $news = $query->paginate(12);
-        $latestNews = News::with(['organization'])
-            ->published()
-            ->orderBy('published_at', 'desc')
-            ->take(3) // Fetch the latest 3 news items
-            ->get();
-        
-        $organizations = Organization::all();
 
         return view('index', compact('news', 'organizations', 'latestNews'));
     }
@@ -54,30 +60,35 @@ class NewsController extends Controller
      */
     public function newsList(Request $request)
     {
-        $query = News::with(['organization', 'user'])
-            ->published()
-            ->orderBy('published_at', 'desc');
+        try {
+            $query = News::with(['organization', 'user'])
+                ->published()
+                ->orderBy('published_at', 'desc');
 
-        // Apply filters
-        if ($request->has('organization') && $request->organization) {
-            $query->where('organization_id', $request->organization);
+            // Apply filters
+            if ($request->has('organization') && $request->organization) {
+                $query->where('organization_id', $request->organization);
+            }
+
+            if ($request->has('type') && $request->type) {
+                $query->where('type', $request->type);
+            }
+
+            if ($request->has('search') && $request->search) {
+                $search = $request->search;
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                      ->orWhere('content', 'like', "%{$search}%")
+                      ->orWhere('excerpt', 'like', "%{$search}%");
+                });
+            }
+
+            $news = $query->paginate(12);
+            $organizations = Organization::all();
+        } catch (\Throwable $e) {
+            $news = collect([]);
+            $organizations = collect([]);
         }
-
-        if ($request->has('type') && $request->type) {
-            $query->where('type', $request->type);
-        }
-
-        if ($request->has('search') && $request->search) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('content', 'like', "%{$search}%")
-                  ->orWhere('excerpt', 'like', "%{$search}%");
-            });
-        }
-
-        $news = $query->paginate(12);
-        $organizations = Organization::all();
 
         return view('news', compact('news', 'organizations'));
     }
