@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Events - PUP Clubs & Organizations</title>
   <link href="https://fonts.bunny.net/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
@@ -11,7 +12,7 @@
     body { font-family: 'Nunito', sans-serif; }
   </style>
   <script>
-    function addEventItem(e) {
+    async function addEventItem(e) {
       e.preventDefault();
 
       const title = document.getElementById('event-title').value.trim();
@@ -21,6 +22,27 @@
 
       if (!title || !date || !time || !description) {
         alert('Please fill out all fields.');
+        return;
+      }
+
+      // Send to backend
+      try {
+        const resp = await fetch('/events', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          },
+          body: JSON.stringify({ title, date, time, description })
+        });
+        const data = await resp.json();
+        if (!resp.ok || !data.success) {
+          throw new Error('Failed to save event');
+        }
+      } catch (err) {
+        alert('Saving to database failed. Please ensure XAMPP MySQL is running and .env DB settings are correct.');
+        console.error(err);
         return;
       }
 
@@ -102,7 +124,7 @@
       <h2 class="text-2xl font-bold text-red-700 mb-4">Add New Event</h2>
       <form id="event-form" onsubmit="addEventItem(event)" class="grid md:grid-cols-4 gap-4">
         <div class="md:col-span-2">
-          <label for="event-title" class="block font-semibold mb-1">Title</label>
+          <label for="event-title" class="block font-semibold mb-1">Event Title</label>
           <input id="event-title" type="text" placeholder="Event title" class="w-full p-2 border rounded-lg" required>
         </div>
         <div>

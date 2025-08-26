@@ -90,3 +90,6 @@ Route::get('/test-media', function () {
 Route::get('/events', function ()  {
     return view('events');
 });
+
+use App\Http\Controllers\EventController;
+Route::post('/events', [EventController::class, 'store'])->name('events.store');
