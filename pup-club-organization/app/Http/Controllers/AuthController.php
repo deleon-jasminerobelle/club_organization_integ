@@ -19,6 +19,10 @@ class AuthController extends Controller
     {
         $apiUrl = env('API_URL', 'http://pupt-registration.site');
         $apiKey = env('API_KEY');
+        Log::info('AuthController@login using API key', [
+            'present' => !empty($apiKey),
+            'preview' => is_string($apiKey) && strlen($apiKey) >= 10 ? substr($apiKey, 0, 4) . '...' . substr($apiKey, -6) : $apiKey,
+        ]);
         
         // Log the request for debugging
         Log::info('Login attemp', [
@@ -69,6 +73,10 @@ class AuthController extends Controller
     {
         $apiUrl = env('API_URL', 'http://pupt-registration.site');
         $apiKey = env('API_KEY');
+        Log::info('AuthController@testApiConnection using API key', [
+            'present' => !empty($apiKey),
+            'preview' => is_string($apiKey) && strlen($apiKey) >= 10 ? substr($apiKey, 0, 4) . '...' . substr($apiKey, -6) : $apiKey,
+        ]);
         
         try {
             
@@ -116,6 +124,10 @@ class AuthController extends Controller
     {
         $apiUrl = env('API_URL', 'http://pupt-registration.site');
         $apiKey = env('API_KEY');
+        Log::info('AuthController@signup using API key', [
+            'present' => !empty($apiKey),
+            'preview' => is_string($apiKey) && strlen($apiKey) >= 10 ? substr($apiKey, 0, 4) . '...' . substr($apiKey, -6) : $apiKey,
+        ]);
 
         // Validate the incoming request
         $validator = Validator::make($request->all(), [

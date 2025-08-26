@@ -84,3 +84,9 @@ Route::get('/test-media', function () {
         return response()->json(['success' => false, 'error' => $e->getMessage()]);
     }
 });
+
+
+// Route for events page
+Route::get('/events', function ()  {
+    return view('events');
+});
