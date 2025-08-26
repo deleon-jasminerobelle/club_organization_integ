@@ -114,7 +114,7 @@
           <input id="event-time" type="time" class="w-full p-2 border rounded-lg" required>
         </div>
         <div class="md:col-span-3">
-          <label for="event-description" class="block font-semibold mb-1">Description</label>
+          <label for="event-description" class="block font-semibold mb-1">Event Description</label>
           <input id="event-description" type="text" placeholder="Brief description" class="w-full p-2 border rounded-lg" required>
         </div>
         <div class="md:col-span-1 flex items-end justify-end">
