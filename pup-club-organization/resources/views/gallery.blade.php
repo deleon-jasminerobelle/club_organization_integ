@@ -14,7 +14,7 @@
             font-family: 'Nunito', sans-serif;
             scroll-behavior: smooth;
         }
-
+                                                     
         .maroon {
             color: #800000;
         }
@@ -56,7 +56,7 @@
                 </div>
                 
                 <div class="hidden md:flex space-x-8">
-<a href="/index" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
+<a href="/" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
                     <a href="/#clubs" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a> 
                     <a href="/#events" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
                     <a href="/#news-media" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
@@ -108,9 +108,15 @@
                         Achievements
                     </a>
                 </div>
-                <!-- Search Bar -->
-                <div class="flex-grow">
-                    <input type="text" placeholder="Search..." class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                <div class="flex items-center gap-4">
+                    <!-- Search Bar -->
+                    <div class="flex-grow">
+                        <input type="text" placeholder="Search..." class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                    </div>
+                    <!-- Upload Button -->
+                    <a href="{{ route('media.create') }}" class="px-6 py-3 rounded-full font-semibold bg-green-600 text-white hover:bg-green-700">
+                        <i class="fas fa-plus mr-2"></i>Upload
+                    </a>
                 </div>
             </div>
         </div>
@@ -118,68 +124,30 @@
 
     <!-- Gallery Section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Sample gallery items -->
-            <div class="bg-white rounded-lg shadow-md card-hover">
-                <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                     alt="Tree Planting" class="w-full h-48 object-cover rounded-t-lg">
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold">Tree Planting</h3>
-                    <p class="text-gray-500">Oct 2025</p>
-                    <p class="text-gray-700">Captured moments of volunteers planting trees for environmental conservation.</p>
-                </div>
+        @if($media->count() > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($media as $item)
+                    <div class="bg-white rounded-lg shadow-md card-hover">
+                        <img src="{{ asset($item->file_path) }}" 
+                             alt="{{ $item->alt_text ?? $item->title }}" 
+                             class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold">{{ $item->title ?? 'Untitled' }}</h3>
+                            <p class="text-gray-500">{{ $item->created_at->format('M Y') }}</p>
+                            <p class="text-gray-700">{{ $item->description ?? 'No description available' }}</p>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-
-            <div class="bg-white rounded-lg shadow-md card-hover">
-                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                     alt="Basketball Tournament" class="w-full h-48 object-cover rounded-t-lg">
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold">Basketball Tournament</h3>
-                    <p class="text-gray-500">Sep 2025</p>
-                    <p class="text-gray-700">Championship basketball game between student teams.</p>
+        @else
+            <div class="text-center py-12">
+                <div class="text-gray-400 text-6xl mb-4">
+                    <i class="fas fa-image"></i>
                 </div>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">No media items found</h3>
+                <p class="text-gray-500">There are currently no gallery items to display.</p>
             </div>
-
-            <div class="bg-white rounded-lg shadow-md card-hover">
-                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                     alt="Art Exhibit" class="w-full h-48 object-cover rounded-t-lg">
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold">Art Exhibit</h3>
-                    <p class="text-gray-500">Jul 2025</p>
-                    <p class="text-gray-700">Students showcasing their creative artworks and talents.</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-md card-hover">
-                <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                     alt="Coding Bootcamp" class="w-full h-48 object-cover rounded-t-lg">
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold">Coding Bootcamp</h3>
-                    <p class="text-gray-500">Aug 2025</p>
-                    <p class="text-gray-700">Intensive programming workshop for aspiring developers.</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-md card-hover">
-                <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                     alt="Dance Performance" class="w-full h-48 object-cover rounded-t-lg">
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold">Dance Performance</h3>
-                    <p class="text-gray-500">Aug 2025</p>
-                    <p class="text-gray-700">Cultural dance presentation showcasing student talents.</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-md card-hover">
-                <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                     alt="Best Performance Award" class="w-full h-48 object-cover rounded-t-lg">
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold">Best Performance Award</h3>
-                    <p class="text-gray-500">2025</p>
-                    <p class="text-gray-700">Award for outstanding performance in cultural activities.</p>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 </div>
 

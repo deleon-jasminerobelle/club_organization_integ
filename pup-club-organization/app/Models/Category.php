@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Media extends Model
+class Category extends Model
 {
     use HasFactory;
 
@@ -15,19 +15,16 @@ class Media extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'filename',
-        'original_filename',
-        'mime_type',
-        'file_size',
-        'file_path',
-        'thumbnail_path',
-        'title',
+        'name',
+        'slug',
         'description',
-        'alt_text',
-        'type',
-        'collection',
-        'organization_id',
-        'user_id',
-        'order_column',
     ];
+
+    /**
+     * Get the organizations for the category.
+     */
+    public function organizations()
+    {
+        return $this->hasMany(Organization::class);
+    }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // New route for signup
 Route::post('/students', [AuthController::class, 'signup']);
+
+// News API routes
+Route::post('/news', [NewsController::class, 'store']);
+Route::get('/news/organization/{organizationId}', [NewsController::class, 'byOrganization']);
+Route::get('/news/type/{type}', [NewsController::class, 'byType']);
+Route::post('/news/{id}/views', [NewsController::class, 'incrementViews']);

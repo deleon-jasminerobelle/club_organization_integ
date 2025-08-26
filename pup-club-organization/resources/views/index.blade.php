@@ -85,9 +85,9 @@
                 
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
-                    <a href="#clubs" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a> 
+                    <a href="/club" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a>
                     <a href="#events" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
-                    <a href="#news & media" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
+                    <a href="/news" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
                     <a href="/gallery" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
                     <a href="officers" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Officers</a>
                     <a href="#about" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
@@ -174,33 +174,33 @@
 
             <div class="flex justify-center">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
-                    <!-- Club Card 1 -->
+                    <!-- Academic Club Card -->
                     <div class="bg-white rounded-2xl shadow-xl p-6 card-hover fade-in">
-                        <div class="w-16 h-16 bg-maroon rounded-full flex items-center justify-center mb-4 mx-auto">
-                            <i class="fas fa-code text-2xl text-white"></i>
+                        <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-book text-2xl text-maroon"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-maroon mb-3 text-center">Non-Academic</h3>
+                        <h3 class="text-2xl font-bold text-maroon mb-3 text-center">Academic Clubs</h3>
                         <p class="text-gray-600 mb-4 text-center">
-                            For tech enthusiasts and future innovators. Join us for hackathons, workshops, and tech talks.
+                            Enhance your academic journey with subject-specific clubs that focus on learning, research, and professional development in various fields of study.
                         </p>
                         <div class="text-center">
-                            <span class="inline-block bg-gold text-maroon px-3 py-1 rounded-full text-sm font-semibold">
+                            <span class="inline-block bg-maroon text-white px-3 py-1 rounded-full text-sm font-semibold">
                                 150 Members
                             </span>
                         </div>
                     </div>
 
-                    <!-- Club Card 2 -->
+                    <!-- Non-Academic Club Card -->
                     <div class="bg-white rounded-2xl shadow-xl p-6 card-hover fade-in" style="animation-delay: 0.2s;">
-                        <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center mb-4 mx-auto">
-                            <i class="fas fa-music text-2xl text-maroon"></i>
+                        <div class="w-16 h-16 bg-maroon rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-paint-brush text-2xl text-white"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-maroon mb-3 text-center">Academic</h3>
+                        <h3 class="text-2xl font-bold text-maroon mb-3 text-center">Non-Academic Clubs</h3>
                         <p class="text-gray-600 mb-4 text-center">
-                            Express your musical talent. Join our band, choir, or participate in musical events.
+                            Explore your passions beyond academics with clubs focused on arts, sports, culture, and recreational activities that enrich campus life.
                         </p>
                         <div class="text-center">
-                            <span class="inline-block bg-maroon text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            <span class="inline-block bg-gold text-maroon px-3 py-1 rounded-full text-sm font-semibold">
                                 80 Members
                             </span>
                         </div>
@@ -216,6 +216,49 @@
             <div class="text-center mb-16 fade-in">
                 <h2 class="text-4xl md:text-5xl font-bold text-maroon mb-4">Upcoming Events</h2>
                 <p class="text-xl text-gray-600">Don't miss out on these exciting campus events</p>
+            </div>
+
+            <!-- Slideshow Container -->
+            <div class="slideshow-container mb-12 rounded-2xl overflow-hidden shadow-xl fade-in">
+                <!-- Slide 1 -->
+                <div class="slide fade">
+                    <img src="{{ asset('images/482959368_965891369002240_6039744627788978939_n.jpg') }}" 
+                         alt="Event Image 1" class="w-full h-96 object-cover">
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="slide fade">
+                    <img src="{{ asset('images/490955491_992222476369129_491892461594551543_n.jpg') }}" 
+                         alt="Event Image 2" class="w-full h-96 object-cover">
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="slide fade">
+                    <img src="{{ asset('images/491420048_992221616369215_2117323626313947212_n.jpg') }}" 
+                         alt="Event Image 3" class="w-full h-96 object-cover">
+                </div>
+                
+                <!-- Slide 4 -->
+                <div class="slide fade">
+                    <img src="{{ asset('images/506299233_1032447152346661_7683062886974793151_n.jpg') }}" 
+                         alt="Event Image 4" class="w-full h-96 object-cover">
+                </div>
+
+                <!-- Navigation buttons -->
+                <button class="prev-btn absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 text-maroon p-3 rounded-full hover:bg-white transition-colors">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="next-btn absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 text-maroon p-3 rounded-full hover:bg-white transition-colors">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <!-- Dots indicator -->
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+                    <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+                    <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+                    <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -267,124 +310,89 @@
         </div>
     </section>
 
-    <!-- News & Media Section -->
-    <section id="news-media" class="py-20 bg-white">
+
+    <!-- Latest News Section -->
+    <section id="latest-news" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl md:text-5xl font-bold text-maroon mb-4">News & Media</h2>
-                <p class="text-xl text-gray-600">Stay updated with the latest campus happenings and events</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-maroon mb-4">Latest News</h2>
+                <p class="text-xl text-gray-600">Stay updated with the latest happenings on campus</p>
             </div>
 
-            <!-- Interactive Slideshow -->
-            <div class="relative max-w-6xl mx-auto">
-                <!-- Slideshow Container -->
-                <div class="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
-                    <!-- Slides -->
-                    <div class="slideshow-container h-full">
-                        <!-- Slide 1 -->
-                        <div class="slide fade">
-                            <div class="absolute inset-0 bg-gradient-to-r from-maroon/90 to-maroon/60"></div>
-                            <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-                                 alt="Campus Event" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
-                                <h3 class="text-2xl md:text-3xl font-bold mb-2">Annual Tech Conference 2024</h3>
-                                <p class="text-lg mb-4">Join us for the biggest technology event of the year featuring industry experts and workshops</p>
-                                <span class="bg-gold text-maroon px-4 py-2 rounded-full text-sm font-semibold">March 15, 2024</span>
+            <!-- News Slideshow Container -->
+            @if($latestNews->count() > 0)
+            <div class="news-slideshow-container mb-12 rounded-2xl overflow-hidden shadow-xl fade-in">
+                @foreach($latestNews as $index => $news)
+                <!-- News Slide {{ $index + 1 }} -->
+                <div class="news-slide fade">
+                    <div class="relative">
+                        @if($news->featured_image)
+                            <img src="{{ $news->featured_image }}" 
+                                 alt="{{ $news->title }}" 
+                                 class="w-full h-96 object-cover">
+                        @else
+                            <div class="w-full h-96 bg-gradient-to-br from-maroon to-red-800 flex items-center justify-center">
+                                <i class="fas fa-newspaper text-white text-6xl"></i>
+                            </div>
+                        @endif
+                        
+                        <!-- News Overlay Content -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-gold text-maroon text-xs px-3 py-1 rounded-full font-semibold mr-3">
+                                    {{ ucfirst($news->type) }}
+                                </span>
+                                <span class="text-white/80 text-sm">
+                                    {{ $news->organization->name }}
+                                </span>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold text-white mb-2">{{ $news->title }}</h3>
+                            <p class="text-white/90 mb-4 line-clamp-2">{{ $news->excerpt ?? Str::limit($news->content, 120) }}</p>
+                            
+                            <div class="flex items-center justify-between">
+                                <span class="text-white/70 text-sm">
+                                    <i class="fas fa-clock mr-1"></i>{{ $news->published_at->diffForHumans() }}
+                                </span>
+                                <a href="{{ route('news.show', $news->slug) }}" 
+                                   class="bg-gold text-maroon px-4 py-2 rounded-lg hover:bg-yellow-300 transition-colors font-semibold text-sm">
+                                    Read More <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
                             </div>
                         </div>
-
-                        <!-- Slide 2 -->
-                        <div class="slide fade">
-                            <div class="absolute inset-0 bg-gradient-to-r from-maroon/90 to-maroon/60"></div>
-                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-                                 alt="Student Activities" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
-                                <h3 class="text-2xl md:text-3xl font-bold mb-2">Student Leadership Summit</h3>
-                                <p class="text-lg mb-4">Developing future leaders through workshops and networking opportunities</p>
-                                <span class="bg-gold text-maroon px-4 py-2 rounded-full text-sm font-semibold">April 10, 2024</span>
-                            </div>
-                        </div>
-
-                        <!-- Slide 3 -->
-                        <div class="slide fade">
-                            <div class="absolute inset-0 bg-gradient-to-r from-maroon/90 to-maroon/60"></div>
-                            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-                                 alt="Cultural Festival" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
-                                <h3 class="text-2xl md:text-3xl font-bold mb-2">Cultural Diversity Festival</h3>
-                                <p class="text-lg mb-4">Celebrating diversity with performances, food, and cultural exhibitions</p>
-                                <span class="bg-gold text-maroon px-4 py-2 rounded-full text-sm font-semibold">May 20, 2024</span>
-                            </div>
-                        </div>
-
-                        <!-- Slide 4 -->
-                        <div class="slide fade">
-                            <div class="absolute inset-0 bg-gradient-to-r from-maroon/90 to-maroon/60"></div>
-                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-                                 alt="Sports Tournament" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
-                                <h3 class="text-2xl md:text-3xl font-bold mb-2">Inter-College Sports Championship</h3>
-                                <p class="text-lg mb-4">Witness the best athletes compete in various sports competitions</p>
-                                <span class="bg-gold text-maroon px-4 py-2 rounded-full text-sm font-semibold">June 5, 2024</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Navigation Arrows -->
-                    <button class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 prev-btn">
-                        <i class="fas fa-chevron-left text-xl"></i>
-                    </button>
-                    <button class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 next-btn">
-                        <i class="fas fa-chevron-right text-xl"></i>
-                    </button>
-
-                    <!-- Dots Indicator -->
-                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                        <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
-                        <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
-                        <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
-                        <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
                     </div>
                 </div>
+                @endforeach
 
-                <!-- News Grid Below Slideshow -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-                    <!-- News Card 1 -->
-                    <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-                        <div class="w-12 h-12 bg-maroon rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-newspaper text-white"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-maroon mb-3">New Club Launches</h3>
-                        <p class="text-gray-600 mb-4">Three new student organizations have been approved this semester...</p>
-                        <a href="#" class="text-maroon hover:text-red-800 font-semibold flex items-center">
-                            Read More <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
+                <!-- Navigation buttons -->
+                <button class="news-prev-btn absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 text-maroon p-3 rounded-full hover:bg-white transition-colors">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="news-next-btn absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 text-maroon p-3 rounded-full hover:bg-white transition-colors">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
 
-                    <!-- News Card 2 -->
-                    <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-                        <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-trophy text-maroon"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-maroon mb-3">Award Winners</h3>
-                        <p class="text-gray-600 mb-4">Our students won 5 awards at the regional competition...</p>
-                        <a href="#" class="text-maroon hover:text-red-800 font-semibold flex items-center">
-                            Read More <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-
-                    <!-- News Card 3 -->
-                    <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-                        <div class="w-12 h-12 bg-maroon rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-calendar text-white"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-maroon mb-3">Upcoming Events</h3>
-                        <p class="text-gray-600 mb-4">Mark your calendars for these exciting events happening next month...</p>
-                        <a href="#" class="text-maroon hover:text-red-800 font-semibold flex items-center">
-                            Read More <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
+                <!-- Dots indicator -->
+                <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    @foreach($latestNews as $index => $news)
+                    <span class="news-dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+                    @endforeach
                 </div>
+            </div>
+            @else
+            <div class="text-center py-12 fade-in">
+                <i class="fas fa-newspaper text-gray-300 text-6xl mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">No news available</h3>
+                <p class="text-gray-500">Check back later for the latest updates!</p>
+            </div>
+            @endif
+
+            <!-- View All News Link -->
+            <div class="text-center fade-in">
+                <a href="/news" class="inline-flex items-center text-maroon hover:text-red-800 font-semibold text-lg">
+                    View All News & Announcements
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -504,13 +512,21 @@
 
         // Interactive Slideshow Functionality
         function initSlideshow() {
+            // Events slideshow
             let slideIndex = 0;
             const slides = document.querySelectorAll('.slide');
             const dots = document.querySelectorAll('.dot');
             const prevBtn = document.querySelector('.prev-btn');
             const nextBtn = document.querySelector('.next-btn');
 
-            // Show specific slide
+            // News slideshow
+            let newsSlideIndex = 0;
+            const newsSlides = document.querySelectorAll('.news-slide');
+            const newsDots = document.querySelectorAll('.news-dot');
+            const newsPrevBtn = document.querySelector('.news-prev-btn');
+            const newsNextBtn = document.querySelector('.news-next-btn');
+
+            // Show specific slide for events
             function showSlide(n) {
                 if (n >= slides.length) slideIndex = 0;
                 if (n < 0) slideIndex = slides.length - 1;
@@ -522,56 +538,118 @@
                 dots[slideIndex].classList.add('bg-white');
             }
 
-            // Next/previous controls
+            // Show specific slide for news
+            function showNewsSlide(n) {
+                if (n >= newsSlides.length) newsSlideIndex = 0;
+                if (n < 0) newsSlideIndex = newsSlides.length - 1;
+                
+                newsSlides.forEach(slide => slide.style.display = 'none');
+                newsDots.forEach(dot => dot.classList.remove('bg-white'));
+                
+                newsSlides[newsSlideIndex].style.display = 'block';
+                newsDots[newsSlideIndex].classList.add('bg-white');
+            }
+
+            // Next/previous controls for events
             function plusSlides(n) {
                 showSlide(slideIndex += n);
             }
 
-            // Thumbnail image controls
+            // Next/previous controls for news
+            function plusNewsSlides(n) {
+                showNewsSlide(newsSlideIndex += n);
+            }
+
+            // Thumbnail image controls for events
             function currentSlide(n) {
                 showSlide(slideIndex = n);
             }
 
-            // Auto-advance slides
+            // Thumbnail image controls for news
+            function currentNewsSlide(n) {
+                showNewsSlide(newsSlideIndex = n);
+            }
+
+            // Auto-advance slides for events
             function autoSlide() {
                 plusSlides(1);
                 setTimeout(autoSlide, 5000); // Change slide every 5 seconds
             }
 
-            // Event listeners
-            prevBtn.addEventListener('click', () => plusSlides(-1));
-            nextBtn.addEventListener('click', () => plusSlides(1));
-            
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => currentSlide(index));
-            });
+            // Auto-advance slides for news
+            function autoNewsSlide() {
+                plusNewsSlides(1);
+                setTimeout(autoNewsSlide, 5000); // Change slide every 5 seconds
+            }
 
-            // Initialize slideshow
-            showSlide(slideIndex);
-            setTimeout(autoSlide, 5000); // Start auto-slide after 5 seconds
+            // Event listeners for events slideshow
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', () => plusSlides(-1));
+                nextBtn.addEventListener('click', () => plusSlides(1));
+                
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => currentSlide(index));
+                });
+            }
 
-            // Pause on hover
+            // Event listeners for news slideshow
+            if (newsPrevBtn && newsNextBtn) {
+                newsPrevBtn.addEventListener('click', () => plusNewsSlides(-1));
+                newsNextBtn.addEventListener('click', () => plusNewsSlides(1));
+                
+                newsDots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => currentNewsSlide(index));
+                });
+            }
+
+            // Initialize events slideshow
+            if (slides.length > 0) {
+                showSlide(slideIndex);
+                setTimeout(autoSlide, 5000);
+            }
+
+            // Initialize news slideshow
+            if (newsSlides.length > 0) {
+                showNewsSlide(newsSlideIndex);
+                setTimeout(autoNewsSlide, 5000);
+            }
+
+            // Pause on hover for events slideshow
             const slideshowContainer = document.querySelector('.slideshow-container');
-            slideshowContainer.addEventListener('mouseenter', () => {
-                clearTimeout(autoSlide);
-            });
-            
-            slideshowContainer.addEventListener('mouseleave', () => {
-                setTimeout(autoSlide, 3000); // Resume after 3 seconds
-            });
+            if (slideshowContainer) {
+                slideshowContainer.addEventListener('mouseenter', () => {
+                    clearTimeout(autoSlide);
+                });
+                
+                slideshowContainer.addEventListener('mouseleave', () => {
+                    setTimeout(autoSlide, 3000);
+                });
+            }
+
+            // Pause on hover for news slideshow
+            const newsSlideshowContainer = document.querySelector('.news-slideshow-container');
+            if (newsSlideshowContainer) {
+                newsSlideshowContainer.addEventListener('mouseenter', () => {
+                    clearTimeout(autoNewsSlide);
+                });
+                
+                newsSlideshowContainer.addEventListener('mouseleave', () => {
+                    setTimeout(autoNewsSlide, 3000);
+                });
+            }
         }
 
         // Add slideshow styles
         const style = document.createElement('style');
         style.textContent = `
-            .slide {
+            .slide, .news-slide {
                 display: none;
                 position: relative;
                 width: 100%;
                 height: 100%;
             }
             
-            .slide.fade {
+            .slide.fade, .news-slide.fade {
                 animation: fade 1.5s ease-in-out;
             }
             
@@ -580,13 +658,20 @@
                 to { opacity: 1; }
             }
             
-            .dot.active {
+            .dot.active, .news-dot.active {
                 background-color: #ffffff !important;
                 transform: scale(1.2);
             }
             
-            .slideshow-container {
+            .slideshow-container, .news-slideshow-container {
                 position: relative;
+            }
+            
+            .line-clamp-2 {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
             }
         `;
         document.head.appendChild(style);
