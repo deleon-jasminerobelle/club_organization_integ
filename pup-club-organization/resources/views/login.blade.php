@@ -50,29 +50,13 @@
                 <!-- Username Field -->
                 <div class="form-group">
                     <label for="username" class="block text-sm font-medium text-[#800000] mb-2">
-                        <i class="fas fa-user mr-2"></i>Username
+                        <i class="fas fa-envelope mr-2"></i>Email Address
                     </label>
                     <div class="relative">
                         <input type="text" id="username" name="username" required 
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#800000] focus:border-transparent transition-all duration-200 pl-10"
-                               placeholder="Enter your username">
+                               placeholder="Enter your email address">
                         <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    </div>
-                </div>
-
-                <!-- Password Field -->
-                <div class="form-group">
-                    <label for="password" class="block text-sm font-medium text-[#800000] mb-2">
-                        <i class="fas fa-lock mr-2"></i>Password
-                    </label>
-                    <div class="relative">
-                        <input type="password" id="password" name="password" required 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#800000] focus:border-transparent transition-all duration-200 pl-10 pr-10"
-                               placeholder="Enter your password">
-                        <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <button type="button" id="togglePassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#800000] transition-colors duration-200">
-                            <i class="fas fa-eye" id="eyeIcon"></i>
-                        </button>
                     </div>
                 </div>
 
@@ -98,12 +82,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('loginForm');
             const usernameInput = document.getElementById('username');
-            const passwordInput = document.getElementById('password');
             const loginButton = document.getElementById('loginButton');
             const buttonText = document.getElementById('buttonText');
             const loadingSpinner = document.getElementById('loadingSpinner');
-            const togglePassword = document.getElementById('togglePassword');
-            const eyeIcon = document.getElementById('eyeIcon');
 
             // Form validation
             loginForm.addEventListener('submit', function(e) {
@@ -115,14 +96,6 @@
                     usernameInput.classList.add('border-red-500');
                 } else {
                     usernameInput.classList.remove('border-red-500');
-                }
-
-                // Validate password
-                if (!passwordInput.value.trim()) {
-                    isValid = false;
-                    passwordInput.classList.add('border-red-500');
-                } else {
-                    passwordInput.classList.remove('border-red-500');
                 }
 
                 if (!isValid) {
@@ -140,20 +113,6 @@
                 if (this.value.trim()) {
                     this.classList.remove('border-red-500');
                 }
-            });
-
-            passwordInput.addEventListener('input', function() {
-                if (this.value.trim()) {
-                    this.classList.remove('border-red-500');
-                }
-            });
-
-            // Toggle password visibility
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                eyeIcon.classList.toggle('fa-eye');
-                eyeIcon.classList.toggle('fa-eye-slash');
             });
         });
     </script>

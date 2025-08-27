@@ -17,54 +17,79 @@ class AuthController extends Controller
     
     public function login(Request $request)
     {
-        $apiUrl = env('API_URL', 'http://pupt-registration.site');
+        $apiUrl = env('API_URL', 'https://pupt-registration.site');
         $apiKey = env('API_KEY');
         Log::info('AuthController@login using API key', [
             'present' => !empty($apiKey),
             'preview' => is_string($apiKey) && strlen($apiKey) >= 10 ? substr($apiKey, 0, 4) . '...' . substr($apiKey, -6) : $apiKey,
         ]);
         
-        // Log the request for debugging
-        Log::info('Login attemp', [
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors(['login' => 'Please enter a valid email address.']);
+        }
+
+        Log::info('Login attempt', [
             'username' => $request->username,
             'api_url' => $apiUrl
         ]);
         
-        $response = Http::withHeaders([
-            'X-API-Key' => $apiKey,
-            'Content-Type' => 'application/json',
-        ])->post($apiUrl . '/login', [
-            'email' => $request->username, 
-            'password' => $request->password,
-        ]);
+        // Since the external API doesn't provide password authentication,
+        // we'll check if the user exists in the external system
+        try {
+            $response = Http::withHeaders([
+                'X-API-Key' => $apiKey,
+                'Content-Type' => 'application/json',
+            ])->get($apiUrl . '/api/students?email=' . urlencode($request->username));
 
-        // Log the full API response for debugging
-        Log::info('API Response', [
-            'status' => $response->status(),
-            'body' => $response->body(),
-            'successful' => $response->successful()
-        ]);
+            // Log the API response for debugging
+            Log::info('Student lookup API Response', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'successful' => $response->successful()
+            ]);
 
-        if ($response->successful()) {
-           
-            return redirect('/index')->with('success', 'Login successful!');
-        } else {
-            
-            $errorMessage = 'Invalid credentials.';
-            
-            try {
-                $responseData = $response->json();
-                if (isset($responseData['message'])) {
-                    $errorMessage = $responseData['message'];
-                } elseif (isset($responseData['error'])) {
-                    $errorMessage = $responseData['error'];
-                }
-            } catch (\Exception $e) {
+            if ($response->successful()) {
+                $students = $response->json();
                 
-                $errorMessage = 'Authentication failed. Please check your credentials.';
+                // Check if any student with this email exists
+                if (is_array($students) && count($students) > 0) {
+                    // User exists, redirect to dashboard
+                    return redirect('/index')->with('success', 'Login successful!');
+                } else {
+                    // No user found with this email
+                    return back()->withErrors(['login' => 'No account found with this email address.']);
+                }
+            } else {
+                // API error
+                $errorMessage = 'Unable to verify account. Please try again.';
+                
+                try {
+                    $responseData = $response->json();
+                    if (isset($responseData['message'])) {
+                        $errorMessage = $responseData['message'];
+                    } elseif (isset($responseData['error'])) {
+                        $errorMessage = $responseData['error'];
+                    }
+                } catch (\Exception $e) {
+                    // If JSON parsing fails, use generic message
+                    $errorMessage = 'Authentication service unavailable. Please try again later.';
+                }
+                
+                return back()->withErrors(['login' => $errorMessage]);
             }
-            
-            return back()->withErrors(['login' => $errorMessage]);
+
+        } catch (\Exception $e) {
+            Log::error('Login API Error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return back()->withErrors(['login' => 'Network error. Please try again later.']);
         }
     }
     
@@ -117,12 +142,10 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Handle user signup by validating data and sending to external API
-     */
+    
     public function signup(Request $request)
     {
-        $apiUrl = env('API_URL', 'http://pupt-registration.site');
+        $apiUrl = env('API_URL', 'https://pupt-registration.site');
         $apiKey = env('API_KEY');
         Log::info('AuthController@signup using API key', [
             'present' => !empty($apiKey),
@@ -163,13 +186,12 @@ class AuthController extends Controller
         ]);
 
         try {
-            // Log the URL and data being sent
+           
             Log::info('Sending data to external API', [
                 'url' => $apiUrl . '/api/students',
                 'data' => $request->all()
             ]);
 
-            // Send data to external API
             $response = Http::withHeaders([
                 'X-API-Key' => $apiKey,
                 'Content-Type' => 'application/json',
