@@ -89,7 +89,7 @@
                     <a href="#events" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
                     <a href="/news" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
                     <a href="/gallery" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
-                    <a href="officers" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Officers</a>
+                    <!-- Removed Officers link -->
                     <a href="#about" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
                     <a href="#contact" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Contact</a>
                 </div>
@@ -261,50 +261,11 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Event 1 -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in">
-                    <div class="h-48 bg-maroon flex items-center justify-center">
-                        <i class="fas fa-calendar-alt text-6xl text-white"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-maroon mb-2">Tech Conference 2024</h3>
-                        <p class="text-gray-600 mb-4">March 15, 2024 • 2:00 PM</p>
-                        <p class="text-gray-700 mb-4">Annual technology conference featuring industry experts and workshops.</p>
-                        <button class="w-full bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors">
-                            Register Now
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Event 2 -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in" style="animation-delay: 0.2s;">
-                    <div class="h-48 bg-maroon flex items-center justify-center">
-                        <i class="fas fa-music text-6xl text-white"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-maroon mb-2">Music Festival</h3>
-                        <p class="text-gray-600 mb-4">April 20, 2024 • 6:00 PM</p>
-                        <p class="text-gray-700 mb-4">Annual music festival featuring student bands and performances.</p>
-                        <button class="w-full bg-gold text-maroon py-2 rounded-lg hover:bg-yellow-300 transition-colors">
-                            Get Tickets
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Event 3 -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in" style="animation-delay: 0.4s;">
-                    <div class="h-48 bg-maroon flex items-center justify-center">
-                        <i class="fas fa-trophy text-6xl text-white"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-maroon mb-2">Sports Tournament</h3>
-                        <p class="text-gray-600 mb-4">May 5, 2024 • 9:00 AM</p>
-                        <p class="text-gray-700 mb-4">Inter-college sports tournament with various competitions.</p>
-                        <button class="w-full bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors">
-                            Join Team
-                        </button>
-                    </div>
+            <div id="upcoming-events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Events will be loaded dynamically here -->
+                <div class="text-center py-12 fade-in col-span-full">
+                    <i class="fas fa-spinner fa-spin text-maroon text-4xl mb-4"></i>
+                    <p class="text-gray-600">Loading upcoming events...</p>
                 </div>
             </div>
         </div>
@@ -508,7 +469,113 @@
             });
             animateCounter();
             initSlideshow();
+            fetchUpcomingEvents();
         });
+
+        // Fetch upcoming events from API
+        function fetchUpcomingEvents() {
+            fetch('/api/events/upcoming')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        displayUpcomingEvents(data.events);
+                    } else {
+                        showNoEventsMessage();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching events:', error);
+                    showNoEventsMessage();
+                });
+        }
+
+        // Display upcoming events in the container
+        function displayUpcomingEvents(events) {
+            const container = document.getElementById('upcoming-events-container');
+            
+            if (events.length === 0) {
+                showNoEventsMessage();
+                return;
+            }
+
+            container.innerHTML = '';
+            
+            events.forEach((event, index) => {
+                const eventCard = createEventCard(event, index);
+                container.appendChild(eventCard);
+                
+                // Add fade-in animation with delay
+                setTimeout(() => {
+                    eventCard.classList.add('visible');
+                }, index * 200);
+            });
+        }
+
+        // Create event card HTML
+        function createEventCard(event, index) {
+            const eventDate = new Date(event.start_datetime);
+            const formattedDate = eventDate.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+            const formattedTime = eventDate.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const eventTypes = {
+                'general': 'calendar-alt',
+                'academic': 'book',
+                'sports': 'trophy',
+                'cultural': 'music',
+                'social': 'users'
+            };
+
+            const icon = eventTypes[event.type] || 'calendar-alt';
+
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in';
+            card.style.animationDelay = `${index * 0.2}s`;
+            
+            // Check if event has a featured image
+            const imageHtml = event.featured_image 
+                ? `<img src="${event.featured_image}" alt="${event.title}" class="w-full h-48 object-cover">`
+                : `<div class="h-48 bg-maroon flex items-center justify-center">
+                      <i class="fas fa-${icon} text-6xl text-white"></i>
+                   </div>`;
+            
+            card.innerHTML = `
+                ${imageHtml}
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-maroon mb-2">${event.title}</h3>
+                    <p class="text-gray-600 mb-4">${formattedDate} • ${formattedTime}</p>
+                    <p class="text-gray-700 mb-4">${event.description.substring(0, 100)}${event.description.length > 100 ? '...' : ''}</p>
+                    <button class="w-full bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors">
+                        View Details
+                    </button>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Show message when no events are available
+        function showNoEventsMessage() {
+            const container = document.getElementById('upcoming-events-container');
+            container.innerHTML = `
+                <div class="text-center py-12 fade-in col-span-full">
+                    <i class="fas fa-calendar-times text-maroon text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-600 mb-2">No upcoming events</h3>
+                    <p class="text-gray-500">Check back later for upcoming events!</p>
+                </div>
+            `;
+            
+            // Add fade-in animation
+            setTimeout(() => {
+                container.querySelector('.fade-in').classList.add('visible');
+            }, 100);
+        }
 
         // Interactive Slideshow Functionality
         function initSlideshow() {

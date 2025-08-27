@@ -11,7 +11,7 @@
   <style>
     body { font-family: 'Nunito', sans-serif; }
   </style>
-  <script>
+    <script>
     async function addEventItem(e) {
       e.preventDefault();
 
@@ -19,10 +19,21 @@
       const date = document.getElementById('event-date').value;
       const time = document.getElementById('event-time').value;
       const description = document.getElementById('event-description').value.trim();
+      const featuredImage = document.getElementById('event-featured-image').files[0];
 
       if (!title || !date || !time || !description) {
-        alert('Please fill out all fields.');
+        alert('Please fill out all required fields.');
         return;
+      }
+
+      // Create FormData for file upload
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('date', date);
+      formData.append('time', time);
+      formData.append('description', description);
+      if (featuredImage) {
+        formData.append('featured_image', featuredImage);
       }
 
       // Send to backend
@@ -30,11 +41,10 @@
         const resp = await fetch('/events', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
           },
-          body: JSON.stringify({ title, date, time, description })
+          body: formData
         });
         const data = await resp.json();
         if (!resp.ok || !data.success) {
@@ -50,10 +60,16 @@
 
       const card = document.createElement('div');
       card.className = 'bg-white rounded-2xl shadow-xl overflow-hidden card-hover';
+      
+      // Check if event has a featured image
+      const imageHtml = featuredImage 
+        ? `<img src="${URL.createObjectURL(featuredImage)}" alt="${title}" class="w-full h-40 object-cover">`
+        : `<div class="h-40 bg-maroon flex items-center justify-center">
+             <i class="fas fa-calendar-alt text-5xl text-white"></i>
+           </div>`;
+      
       card.innerHTML = `
-        <div class="h-40 bg-maroon flex items-center justify-center">
-          <i class="fas fa-calendar-alt text-5xl text-white"></i>
-        </div>
+        ${imageHtml}
         <div class="p-6">
           <h3 class="text-xl font-bold text-maroon mb-2"></h3>
           <p class="text-gray-600 mb-2"></p>
@@ -138,6 +154,10 @@
         <div class="md:col-span-3">
           <label for="event-description" class="block font-semibold mb-1">Event Description</label>
           <input id="event-description" type="text" placeholder="Brief description" class="w-full p-2 border rounded-lg" required>
+        </div>
+        <div class="md:col-span-4">
+          <label for="event-featured-image" class="block font-semibold mb-1">Featured Image (Optional)</label>
+          <input id="event-featured-image" type="file" accept="image/*" class="w-full p-2 border rounded-lg">
         </div>
         <div class="md:col-span-1 flex items-end justify-end">
           <button type="submit" class="bg-red-700 text-white px-6 py-2 rounded-lg hover:bg-red-800">Add Event</button>

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -17,6 +18,7 @@ class EventController extends Controller
             'date' => 'required|date',
             'time' => 'required',
             'description' => 'required|string',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -53,6 +55,15 @@ class EventController extends Controller
             ]);
         }
 
+        // Handle featured image upload
+        $featuredImagePath = null;
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs('public/events', $imageName);
+            $featuredImagePath = 'storage/events/' . $imageName;
+        }
+
         $event = Event::create([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
@@ -64,12 +75,28 @@ class EventController extends Controller
             'status' => 'scheduled',
             'type' => 'general',
             'is_public' => true,
+            'featured_image' => $featuredImagePath,
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Event saved successfully',
             'event' => $event,
+        ]);
+    }
+
+    public function getUpcomingEvents()
+    {
+        $upcomingEvents = Event::where('start_datetime', '>', Carbon::now())
+            ->where('is_public', true)
+            ->where('status', 'scheduled')
+            ->orderBy('start_datetime', 'asc')
+            ->take(6)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'events' => $upcomingEvents,
         ]);
     }
 }

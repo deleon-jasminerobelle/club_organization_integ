@@ -10,6 +10,7 @@
 - [x] Updated SIGNUP_API_DOCUMENTATION.md to reflect correct endpoint `/api/students`
 - [x] Updated AuthController to use HTTPS (`https://pupt-registration.site`) instead of HTTP
 - [x] Fixed both signup() and login() methods to use correct HTTPS URL
+- [x] Removed "Officers" link from navigation in all relevant views.
 
 ## Verification Needed
 - [ ] Test signup functionality to ensure it works with `/api/students` endpoint
