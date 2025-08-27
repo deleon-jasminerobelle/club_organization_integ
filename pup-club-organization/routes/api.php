@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewsController;
 
@@ -19,6 +20,9 @@ use App\Http\Controllers\NewsController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Public API: Upcoming events for index page
+Route::get('/events/upcoming', [EventController::class, 'getUpcomingEvents']);
 
 // New route for signup
 Route::post('/students', [AuthController::class, 'signup']);

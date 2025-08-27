@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\Organization;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -46,10 +48,22 @@ class EventController extends Controller
 
         $org = Organization::query()->first();
         if (!$org) {
+            // Ensure there is at least one category for the FK constraint
+            $category = Category::query()->first();
+            if (!$category) {
+                $category = Category::create([
+                    'name' => 'General',
+                    'slug' => 'general',
+                    'description' => 'Auto-created category',
+                ]);
+            }
+
             $org = Organization::create([
                 'name' => 'Default Organization',
                 'slug' => 'default-organization',
                 'description' => 'Auto-created organization for events.',
+                'email' => 'org_' . time() . '@example.com',
+                'category_id' => $category->id,
                 'is_active' => true,
                 'is_recognized' => true,
             ]);

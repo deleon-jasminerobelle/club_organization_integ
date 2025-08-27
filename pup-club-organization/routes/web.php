@@ -93,4 +93,5 @@ Route::get('/events', function ()  {
 
 use App\Http\Controllers\EventController;
 Route::post('/events', [EventController::class, 'store'])->name('events.store');
+Route::get('/events/upcoming', [EventController::class, 'getUpcomingEvents']);
 Route::get('/api/events/upcoming', [EventController::class, 'getUpcomingEvents'])->name('events.upcoming');
