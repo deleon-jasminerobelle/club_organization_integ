@@ -58,6 +58,14 @@ class AuthController extends Controller
                 
                 // Check if any student with this email exists
                 if (is_array($students) && count($students) > 0) {
+                    // User exists in the API, authenticate them
+                    // Store user data in session to indicate they're logged in
+                    session(['user' => [
+                        'email' => $request->username,
+                        'name' => $students[0]['first_name'] ?? $students[0]['name'] ?? 'User',
+                        'authenticated' => true
+                    ]]);
+                    
                     // User exists, redirect to dashboard
                     return redirect('/index')->with('success', 'Login successful!');
                 } else {
@@ -221,7 +229,7 @@ class AuthController extends Controller
                         $errorMessage = $responseData['error'];
                     }
                 } catch (\Exception $e) {
-                    // If JSON parsing fails, use the raw body
+                    
                     $errorMessage = 'Signup failed. Please check your information.';
                 }
                 

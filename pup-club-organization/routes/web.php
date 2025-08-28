@@ -29,7 +29,7 @@ Route::get('/signup', function () {
 Route::get('/api-test', [AuthController::class, 'testApiConnection']);
 
 // Route for index page - using NewsController
-Route::get('/index', [NewsController::class, 'index']);
+Route::get('/index', [NewsController::class, 'index'])->middleware('auth');
 
 // New route for gallery page
 Route::get('/gallery', function () {
