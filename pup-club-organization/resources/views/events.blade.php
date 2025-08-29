@@ -99,11 +99,6 @@
       container.prepend(card);
 
       document.getElementById('event-form').reset();
-      
-      // Refresh the events list to show the newly added event from database
-      setTimeout(() => {
-        fetchExistingEvents();
-      }, 500);
     }
 
     function formatDateTime(dateStr, timeStr) {
@@ -174,10 +169,7 @@
               <h3 class="text-xl font-bold text-maroon mb-2">${ev.title}</h3>
               <p class="text-gray-600 mb-2">${dateFormatted} • ${timeFormatted}</p>
               <p class="text-gray-700 mb-4">${(ev.description || '').toString()}</p>
-              <div class="flex gap-2">
-                <button class="flex-1 bg-gold text-maroon py-2 rounded-lg hover:bg-yellow-300 transition-colors view-details-btn" data-event='${JSON.stringify(ev)}'>View Details</button>
-                <button class="flex-1 bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors remove-btn" onclick="this.closest('.bg-white').remove()">Remove</button>
-              </div>
+              <button class="w-full bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors remove-btn" onclick="this.closest('.bg-white').remove()">Remove</button>
             </div>
           `;
           container.appendChild(card);
@@ -194,87 +186,6 @@
     }
 
     window.addEventListener('DOMContentLoaded', fetchExistingEvents);
-
-    // ===== View Details Handler =====
-    document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('view-details-btn')) {
-        const eventData = JSON.parse(e.target.getAttribute('data-event'));
-        showEventDetails(eventData);
-      }
-    });
-
-    function showEventDetails(event) {
-      const modal = document.createElement('div');
-      modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-      
-      const eventDate = new Date(event.start_datetime);
-      const formattedDate = eventDate.toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-      const formattedTime = eventDate.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-
-      const imageSrc = event.featured_image_url || event.featured_image;
-      
-      modal.innerHTML = `
-        <div class="bg-white rounded-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-          <div class="relative">
-            ${imageSrc ? `<img src="${imageSrc}" alt="${event.title}" class="w-full h-64 object-cover rounded-t-2xl">` : `
-              <div class="w-full h-64 bg-maroon flex items-center justify-center rounded-t-2xl">
-                <i class="fas fa-calendar-alt text-6xl text-white"></i>
-              </div>
-            `}
-            <button class="absolute top-4 right-4 bg-white/80 hover:bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center transition-colors close-modal">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-          <div class="p-6">
-            <h2 class="text-3xl font-bold text-maroon mb-4">${event.title}</h2>
-            <div class="flex items-center text-gray-600 mb-4">
-              <i class="fas fa-calendar-alt mr-2"></i>
-              <span>${formattedDate}</span>
-            </div>
-            <div class="flex items-center text-gray-600 mb-4">
-              <i class="fas fa-clock mr-2"></i>
-              <span>${formattedTime}</span>
-            </div>
-            <div class="flex items-center text-gray-600 mb-6">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>${event.location || 'Campus'}</span>
-            </div>
-            <div class="border-t border-gray-200 pt-4">
-              <h3 class="text-lg font-semibold text-maroon mb-2">Event Description</h3>
-              <p class="text-gray-700 leading-relaxed">${event.description}</p>
-            </div>
-            <div class="mt-6 flex justify-end">
-              <button class="bg-maroon text-white px-6 py-2 rounded-lg hover:bg-red-800 transition-colors close-modal">Close</button>
-            </div>
-          </div>
-        </div>
-      `;
-
-      document.body.appendChild(modal);
-
-      // Close modal handlers
-      modal.addEventListener('click', (e) => {
-        if (e.target.classList.contains('close-modal') || e.target === modal) {
-          modal.remove();
-        }
-      });
-
-      // Close on escape key
-      document.addEventListener('keydown', function closeOnEscape(e) {
-        if (e.key === 'Escape') {
-          modal.remove();
-          document.removeEventListener('keydown', closeOnEscape);
-        }
-      });
-    }
   </script>
 </head>
 <body class="antialiased bg-gray-100">
@@ -380,10 +291,7 @@
             <h3 class="text-xl font-bold text-maroon mb-2">Orientation Day</h3>
             <p class="text-gray-600 mb-2">January 20, 2025 • 10:00 AM</p>
             <p class="text-gray-700 mb-4">Welcome event for new and returning students with campus tour.</p>
-            <div class="flex gap-2">
-              <button class="flex-1 bg-gold text-maroon py-2 rounded-lg hover:bg-yellow-300 transition-colors">View Details</button>
-              <button class="flex-1 bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors remove-btn" onclick="this.closest('.bg-white').remove()">Remove</button>
-            </div>
+            <button class="w-full bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors remove-btn" onclick="this.closest('.bg-white').remove()">Remove</button>
           </div>
         </div>
       </div>
