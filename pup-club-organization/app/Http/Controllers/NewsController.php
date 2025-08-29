@@ -7,6 +7,7 @@ use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class NewsController extends Controller
 {
@@ -47,7 +48,7 @@ class NewsController extends Controller
             $organizations = Organization::all();
         } catch (\Throwable $e) {
             // Graceful fallback if database is not reachable
-            $news = collect([]);
+            $news = new LengthAwarePaginator([], 0, 12, 1);
             $latestNews = collect([]);
             $organizations = collect([]);
         }
@@ -86,7 +87,8 @@ class NewsController extends Controller
             $news = $query->paginate(12);
             $organizations = Organization::all();
         } catch (\Throwable $e) {
-            $news = collect([]);
+            // Create a mock paginator with empty data to maintain the expected interface
+            $news = new LengthAwarePaginator([], 0, 12, 1);
             $organizations = collect([]);
         }
 
