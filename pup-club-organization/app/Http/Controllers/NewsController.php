@@ -204,4 +204,40 @@ class NewsController extends Controller
 
         return response()->json(['views' => $news->view_count]);
     }
+
+    /**
+     * Display a listing of announcements.
+     */
+    public function announcements(Request $request)
+    {
+        try {
+            $query = News::with(['organization', 'user'])
+                ->published()
+                ->ofType('announcement')
+                ->orderBy('published_at', 'desc');
+
+            // Apply filters
+            if ($request->has('organization') && $request->organization) {
+                $query->where('organization_id', $request->organization);
+            }
+
+            if ($request->has('search') && $request->search) {
+                $search = $request->search;
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                      ->orWhere('content', 'like', "%{$search}%")
+                      ->orWhere('excerpt', 'like', "%{$search}%");
+                });
+            }
+
+            $announcements = $query->paginate(12);
+            $organizations = Organization::all();
+        } catch (\Throwable $e) {
+            // Create a mock paginator with empty data to maintain the expected interface
+            $announcements = new LengthAwarePaginator([], 0, 12, 1);
+            $organizations = collect([]);
+        }
+
+        return view('announcements', compact('announcements', 'organizations'));
+    }
 }

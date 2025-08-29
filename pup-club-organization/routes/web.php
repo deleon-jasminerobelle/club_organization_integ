@@ -58,6 +58,9 @@ Route::post('/media', [MediaController::class, 'store'])->name('media.store');
 Route::get('/news', [NewsController::class, 'newsList'])->name('news.list');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
+// Announcements route
+Route::get('/announcements', [NewsController::class, 'announcements'])->name('announcements');
+
 // Test route for media creation
 Route::get('/test-media', function () {
     try {
