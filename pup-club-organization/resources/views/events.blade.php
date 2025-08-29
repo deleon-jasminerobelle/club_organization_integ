@@ -44,7 +44,7 @@
 
       // Send to backend
       try {
-        const resp = await fetch('{{ route('events.store') }}', {
+        const resp = await fetch("{{ route('events.store') }}", {
           method: 'POST',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -134,8 +134,8 @@
       `;
       try {
         // Use general list so recently created items show even if date is past or same-day
-        console.log('Fetching events from:', '{{ route('events.list') }}');
-        const resp = await fetch('{{ route('events.list') }}');
+        console.log('Fetching events from:', "{{ route('events.list') }}");
+        const resp = await fetch("{{ route('events.list') }}");
         console.log('Response status:', resp.status);
         
         if (!resp.ok) {
@@ -248,10 +248,10 @@
     // Add a simple test to check if the route is accessible
     window.addEventListener('DOMContentLoaded', function() {
       console.log('Page loaded, checking route accessibility...');
-      console.log('Route URL:', '{{ route('events.list') }}');
+      console.log('Route URL:', "{{ route('events.list') }}");
       
       // Test the route first
-      fetch('{{ route('events.list') }}')
+      fetch("{{ route('events.list') }}")
         .then(response => {
           console.log('Route test response:', response.status, response.statusText);
           if (response.ok) {

@@ -157,8 +157,8 @@
                 <a href="{{ route('club') }}" class="bg-gold text-maroon px-8 py-4 rounded-full font-semibold hover:bg-yellow-300 transform hover:scale-105 transition-all duration-300 shadow-lg text-center">
                     Explore Clubs
                 </a>
-                <a href="/signup" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-maroon transform hover:scale-105 transition-all duration-300 text-center">
-                    Join Now
+                <a href="#learn-more" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-maroon transform hover:scale-105 transition-all duration-300 text-center">
+                    Learn More
                 </a>
             </div>
 
@@ -168,7 +168,50 @@
         </div>
     </section>
 
+
+        <!-- Why Join Section -->
+        <section id="learn-more" class="py-20 bg-white text-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-8">Why Join PUP Clubs & Organizations?</h2>
+                <p class="text-center mb-12 max-w-3xl mx-auto text-lg">
+            Being part of a student organization gives you opportunities to grow academically, socially, and professionally. 
+            Connect with peers, attend exclusive events, and make the most of your campus life!
+                </p>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+    <!-- Community Box -->
+     <div class="p-0 bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd0dfyXQgLCaTiKBFzPjga8OKOdX3T_E7x0w&s" 
+             alt="Skills" class="w-full h-64 object-cover">
+        <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">Community</h3>
+        <p>Engage with like-minded students and make lifelong friendships.</p>
+    </div>
+</div>
+
+    <!-- Skills Box -->
+    <div class="p-0 bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnFuP4gf_O5TXL7bXJU7ywEuAaX_L8NeMTsIT64icuiKG6SvLkiFDSzOAeaQb3kjy92pM&usqp=CAU" 
+             alt="Skills" class="w-full h-64 object-cover">
+     <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">Skills</h3>
+        <p>Develop leadership, organizational, and professional skills through activities.</p>
+    </div>
+ </div>
+
+    <!-- Events Box -->
+   <div class="p-0 bg-white rounded-lg shadow-lg overflow-hidden">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzeOMibaY6gkzpjuyHnvD-3MF0LywokDPqIQ&s" 
+            alt="Events" class="w-full h-64 object-cover">
+     <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">Events</h3>
+        <p>Participate in campus events, competitions, and workshops.</p>
+            </div>
+        </div>
+    </div>
+</section>
     
+        
 
     <!-- Statistics Section -->
     <section class="py-20 bg-gray-50">
@@ -225,7 +268,7 @@
                     <!-- Non-Academic Club Card -->
                     <div class="bg-white rounded-2xl shadow-xl p-6 card-hover fade-in" style="animation-delay: 0.2s;">
                         <div class="w-16 h-16 bg-maroon rounded-full flex items-center justify-center mb-4 mx-auto">
-                            <i class="fas fa-paint-brush text-2xl text-white"></i>
+                            <i class="fas fa-paint-brush text-2xl text-maroon"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-maroon mb-3 text-center">Non-Academic Clubs</h3>
                         <p class="text-gray-600 mb-4 text-center">
@@ -233,7 +276,6 @@
                         </p>
                         <div class="text-center">
                             <span class="inline-block bg-gold text-maroon px-3 py-1 rounded-full text-sm font-semibold">
-                                80 Members
                             </span>
                         </div>
                     </div>
