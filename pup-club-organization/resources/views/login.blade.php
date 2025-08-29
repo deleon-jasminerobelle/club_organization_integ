@@ -78,6 +78,19 @@
         </div>
     </div>
 
+             <!-- Login Link -->
+                <div class="text-center mt-4">
+                    <p class="text-sm text-gray-600">
+                        Don't have an account?
+                        <a href="/signup" class="text-maroon hover:text-red-800 font-semibold transition-colors duration-200">
+                            Sign up here
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('loginForm');

@@ -38,23 +38,31 @@
         </div>
 
         <div class="hidden md:flex space-x-8">
-          <a href="/#home" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
-          <a href="/#clubs" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a> 
-          <a href="/#events" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
-          <a href="/news" class="text-red-800 font-semibold transition-all duration-300 scale-110">News & Media</a>
-          <!-- Removed Officers link -->
-          <a href="/#about" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
-          <a href="/#contact" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Contact</a>
-        </div>
+              <a href="{{ route('index') }}#home" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
+              <a href="{{ route('club') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a>
+              <a href="{{ route('index') }}#events" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
+              <a href="{{ route('news.list') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
+              <a href="{{ route('gallery') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
+              <a href="{{ route('index') }}#about" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
+              <a href="{{ route('index') }}#contact" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Contact</a>
+         
+              <!-- Logout Button -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">
+                        Logout
+                    </button>
+                </form>
+            </div>
 
-        <div class="md:hidden">
-          <button class="text-maroon focus:outline-none">
-            <i class="fas fa-bars text-2xl"></i>
-          </button>
+            <div class="md:hidden">
+                <button class="text-maroon focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
         </div>
-      </div>
     </div>
-  </nav>
+</nav>
 
   <main class="pt-24 px-4 max-w-7xl mx-auto">
 

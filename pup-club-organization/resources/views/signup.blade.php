@@ -232,6 +232,9 @@
                     if (response.ok) {
                         showMessage('Account created successfully!', 'success');
                         signupForm.reset();
+
+                        // Redirect to login
+                        window.setTimeout(() => window.location.href = "/login");
                     } else {
                         showMessage(result.message || 'Signup failed. Please try again.', 'error');
                     }

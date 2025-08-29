@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\MediaController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Http\Controllers\MediaController;
 |
 */
 
-Route::get('/', [NewsController::class, 'index']);
+Route::get('/', [AuthController::class, 'showLoginForm']);
 
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -29,7 +30,7 @@ Route::get('/signup', function () {
 Route::get('/api-test', [AuthController::class, 'testApiConnection']);
 
 // Route for index page - using NewsController
-Route::get('/index', [NewsController::class, 'index'])->middleware('auth');
+Route::get('/index', [NewsController::class, 'index'])->middleware('session.auth')->name('index');
 
 // New route for gallery page
 Route::get('/gallery', function () {
@@ -41,14 +42,14 @@ Route::get('/gallery', function () {
 
 Route::get('/club', function() {
     return view('club');
-});
+})->name('club');
 
 // Media routes
 Route::get('/media/create', [MediaController::class, 'create'])->name('media.create');
 Route::post('/media', [MediaController::class, 'store'])->name('media.store');
 
 // News routes
-Route::get('/news', [NewsController::class, 'newsList']);
+Route::get('/news', [NewsController::class, 'newsList'])->name('news.list');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
 // Test route for media creation
@@ -89,9 +90,15 @@ Route::get('/test-media', function () {
 // Route for events page
 Route::get('/events', function ()  {
     return view('events');
-});
+})->middleware('session.auth')->name('events');
 
 use App\Http\Controllers\EventController;
 Route::post('/events', [EventController::class, 'store'])->name('events.store');
 Route::get('/events/upcoming', [EventController::class, 'getUpcomingEvents']);
 Route::get('/api/events/upcoming', [EventController::class, 'getUpcomingEvents'])->name('events.upcoming');
+
+
+Route::post('/logout', function (Request $request) {
+    $request->session()->forget('user');
+    return redirect('/login')->with('success', 'Logged out successfully.');
+})->name('logout');

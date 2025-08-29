@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class AuthController extends Controller
@@ -15,93 +15,49 @@ class AuthController extends Controller
         return view('login');
     }
     
-    public function login(Request $request)
-    {
-        $apiUrl = env('API_URL', 'https://pupt-registration.site');
-        $apiKey = env('API_KEY');
-        Log::info('AuthController@login using API key', [
-            'present' => !empty($apiKey),
-            'preview' => is_string($apiKey) && strlen($apiKey) >= 10 ? substr($apiKey, 0, 4) . '...' . substr($apiKey, -6) : $apiKey,
-        ]);
-        
-        // Validate the request
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|email',
-        ]);
+  public function login(Request $request)
+{
+    // Validate username field
+    $request->validate([
+        'username' => 'required|string',
+    ]);
 
-        if ($validator->fails()) {
-            return back()->withErrors(['login' => 'Please enter a valid email address.']);
-        }
+    $apiUrl = env('API_URL', 'https://pupt-registration.site');
+    $apiKey = env('API_KEY');
 
-        Log::info('Login attempt', [
-            'username' => $request->username,
-            'api_url' => $apiUrl
-        ]);
-        
-        // Since the external API doesn't provide password authentication,
-        // we'll check if the user exists in the external system
-        try {
-            $response = Http::withHeaders([
-                'X-API-Key' => $apiKey,
-                'Content-Type' => 'application/json',
-            ])->get($apiUrl . '/api/students?email=' . urlencode($request->username));
-
-            // Log the API response for debugging
-            Log::info('Student lookup API Response', [
-                'status' => $response->status(),
-                'body' => $response->body(),
-                'successful' => $response->successful()
-            ]);
-
-            if ($response->successful()) {
-                $students = $response->json();
-                
-                // Check if any student with this email exists
-                if (is_array($students) && count($students) > 0) {
-                    // User exists in the API, authenticate them
-                    // Store user data in session to indicate they're logged in
-                    session(['user' => [
-                        'email' => $request->username,
-                        'name' => $students[0]['first_name'] ?? $students[0]['name'] ?? 'User',
-                        'authenticated' => true
-                    ]]);
-                    
-                    // User exists, redirect to dashboard
-                    return redirect('/index')->with('success', 'Login successful!');
-                } else {
-                    // No user found with this email
-                    return back()->withErrors(['login' => 'No account found with this email address.']);
-                }
-            } else {
-                // API error
-                $errorMessage = 'Unable to verify account. Please try again.';
-                
-                try {
-                    $responseData = $response->json();
-                    if (isset($responseData['message'])) {
-                        $errorMessage = $responseData['message'];
-                    } elseif (isset($responseData['error'])) {
-                        $errorMessage = $responseData['error'];
-                    }
-                } catch (\Exception $e) {
-                    // If JSON parsing fails, use generic message
-                    $errorMessage = 'Authentication service unavailable. Please try again later.';
-                }
-                
-                return back()->withErrors(['login' => $errorMessage]);
-            }
-
-        } catch (\Exception $e) {
-            Log::error('Login API Error', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            return back()->withErrors(['login' => 'Network error. Please try again later.']);
-        }
+    $headers = [];
+    if (!empty($apiKey)) {
+        $headers['X-API-Key'] = $apiKey;
     }
-    
-  
+
+    // Call API with username
+    $response = Http::withHeaders($headers)->get("{$apiUrl}/api/students", [
+        'username' => $request->username,
+    ]);
+
+    if ($response->successful()) {
+        $students = $response->json();
+
+        if (is_array($students) && count($students) > 0) {
+            // Save session
+            session([
+                'user' => [
+                    'username' => $request->username,
+                    'name' => $students[0]['first_name'] ?? $students[0]['name'] ?? 'User',
+                    'authenticated' => true,
+                ]
+            ]);
+
+            return redirect()->route('index')->with('success', 'Login successful!');
+        } else {
+            return back()->withErrors(['login' => 'No account found with this username.']);
+        }
+    } else {
+        return back()->withErrors(['login' => 'Network error. Please try again later.']);
+    }
+}
+
+
     public function testApiConnection()
     {
         $apiUrl = env('API_URL', 'http://pupt-registration.site');
