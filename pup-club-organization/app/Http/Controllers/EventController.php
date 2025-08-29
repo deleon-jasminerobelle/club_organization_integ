@@ -135,6 +135,58 @@ class EventController extends Controller
             'events' => $events,
         ]);
     }
+
+    public function update(Request $request, Event $event)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'sometimes|required|string|max:255',
+            'date' => 'sometimes|required|date',
+            'time' => 'sometimes|required',
+            'description' => 'sometimes|required|string',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        if ($request->hasAny(['date', 'time'])) {
+            $date = $request->input('date') ?? $event->start_datetime->format('Y-m-d');
+            $time = $request->input('time') ?? $event->start_datetime->format('H:i');
+            $event->start_datetime = $date . ' ' . $time;
+            $event->end_datetime = $event->start_datetime;
+        }
+
+        if ($request->filled('title')) $event->title = $request->input('title');
+        if ($request->filled('description')) $event->description = $request->input('description');
+
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs('public/events', $imageName);
+            $event->featured_image = 'storage/events/' . $imageName;
+        }
+
+        $event->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Event updated successfully',
+            'event' => $event->fresh(),
+        ]);
+    }
+
+    public function destroy(Event $event)
+    {
+        $event->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Event deleted successfully',
+        ]);
+    }
 }
 
 

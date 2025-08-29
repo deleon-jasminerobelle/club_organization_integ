@@ -86,28 +86,28 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-8">
                     <a href="{{ route('index') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
-                    <a href="{{ route('club') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a>
-                    <a href="{{ route('events') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a>
-                    <a href="{{ route('news.list') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
-                    <a href="{{ route('gallery') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
-                    <a href="{{ route('about') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
+                        <a href="{{ route('club') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a>
+                        <a href="{{ route('events') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
+                        <a href="{{ route('news.list') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
+                        <a href="{{ route('gallery') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
+                        <a href="{{ route('about') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
                     
-                    <!-- Logout Button -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">
-                            Logout
-                        </button>
-                    </form>
-                </div>
+                <!-- Logout Button -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">
+                        Logout
+                    </button>
+                </form>
+            </div>
 
                 <!-- Mobile Menu Button -->
-                <div class="md:hidden">
+            <div class="md:hidden">
                     <button id="mobile-menu-button" class="text-maroon focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
             </div>
+        </div>
 
             <!-- Mobile Navigation (Hidden by default) -->
             <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
@@ -126,10 +126,10 @@
                             Logout
                         </button>
                     </form>
-                </div>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center hero-gradient text-white pt-20">
@@ -343,7 +343,7 @@
                             </div>
                         @endforeach
                     @else
-                        <div class="text-center py-12 fade-in col-span-full">
+                <div class="text-center py-12 fade-in col-span-full">
                             <i class="fas fa-spinner fa-spin text-maroon text-4l mb-4"></i>
                             <p class="text-gray-600">Loading recent events...</p>
                         </div>

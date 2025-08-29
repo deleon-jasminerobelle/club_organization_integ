@@ -150,6 +150,14 @@
           const evDate = new Date(ev.start_datetime);
           const dateFormatted = evDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
           const timeFormatted = evDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          // Defaults for editing
+          const yyyy = evDate.getFullYear();
+          const mm = String(evDate.getMonth() + 1).padStart(2, '0');
+          const dd = String(evDate.getDate()).padStart(2, '0');
+          const HH = String(evDate.getHours()).padStart(2, '0');
+          const II = String(evDate.getMinutes()).padStart(2, '0');
+          const dateValue = `${yyyy}-${mm}-${dd}`;
+          const timeValue = `${HH}:${II}`;
 
           card.innerHTML = `
             ${imageSrc ? `<img src="${imageSrc}" alt="${ev.title}" class="w-full h-40 object-cover">` : `
@@ -161,6 +169,10 @@
               <h3 class="text-xl font-bold text-maroon mb-2">${ev.title}</h3>
               <p class="text-gray-600 mb-2">${dateFormatted} • ${timeFormatted}</p>
               <p class="text-gray-700 mb-4">${(ev.description || '').toString()}</p>
+              <div class="flex gap-2">
+                <button data-id="${ev.id}" data-title="${(ev.title || '').toString().replace(/"/g, '&quot;')}" data-description="${(ev.description || '').toString().replace(/"/g, '&quot;')}" data-date="${dateValue}" data-time="${timeValue}" class="edit-btn bg-gold text-maroon px-4 py-2 rounded-lg hover:bg-yellow-300">Edit</button>
+                <button data-id="${ev.id}" class="delete-btn bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-800">Delete</button>
+              </div>
             </div>
           `;
           container.appendChild(card);
@@ -177,6 +189,69 @@
     }
 
     window.addEventListener('DOMContentLoaded', fetchExistingEvents);
+
+    // ===== Edit/Delete Handlers =====
+    document.addEventListener('click', async (e) => {
+      const target = e.target;
+      if (target.classList.contains('delete-btn')) {
+        const id = target.getAttribute('data-id');
+        if (!confirm('Delete this event?')) return;
+        try {
+          const resp = await fetch(`{{ url('/events') }}/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+          });
+          const data = await resp.json();
+          if (!resp.ok || !data.success) throw new Error('Delete failed');
+          fetchExistingEvents();
+        } catch (err) {
+          alert('Failed to delete event.');
+        }
+      }
+
+      if (target.classList.contains('edit-btn')) {
+        const id = target.getAttribute('data-id');
+        const currentTitle = target.getAttribute('data-title') || '';
+        const currentDesc = target.getAttribute('data-description') || '';
+        const currentDate = target.getAttribute('data-date') || '';
+        const currentTime = target.getAttribute('data-time') || '';
+
+        const newTitle = prompt('Edit title:', currentTitle);
+        if (newTitle === null) return;
+        const newDesc = prompt('Edit description:', currentDesc);
+        if (newDesc === null) return;
+        const newDate = prompt('Edit date (YYYY-MM-DD):', currentDate);
+        if (newDate === null) return;
+        const newTime = prompt('Edit time (HH:MM):', currentTime);
+        if (newTime === null) return;
+
+        const formData = new FormData();
+        formData.append('title', newTitle.trim());
+        formData.append('description', newDesc.trim());
+        formData.append('date', newDate.trim());
+        formData.append('time', newTime.trim());
+        formData.append('_method', 'PUT');
+
+        try {
+          const resp = await fetch(`{{ url('/events') }}/${id}`, {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: formData,
+          });
+          const data = await resp.json();
+          if (!resp.ok || !data.success) throw new Error('Update failed');
+          fetchExistingEvents();
+        } catch (err) {
+          alert('Failed to update event.');
+        }
+      }
+    });
   </script>
 </head>
 <body class="antialiased bg-gray-100">
