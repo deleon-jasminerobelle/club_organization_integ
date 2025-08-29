@@ -272,10 +272,62 @@
             </div>
 
             <div id="upcoming-events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Events will be loaded dynamically here -->
-                <div class="text-center py-12 fade-in col-span-full">
-                    <i class="fas fa-spinner fa-spin text-maroon text-4xl mb-4"></i>
-                    <p class="text-gray-600">Loading upcoming events...</p>
+                @if(isset($upcomingEvents) && $upcomingEvents->count() > 0)
+                    @foreach($upcomingEvents as $event)
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in">
+                            @php $img = $event->featured_image_url ?? $event->featured_image; @endphp
+                            @if($img)
+                                <img src="{{ url($img) }}" alt="{{ $event->title }}" class="w-full h-48 object-cover">
+                            @else
+                                <div class="h-48 bg-maroon flex items-center justify-center">
+                                    <i class="fas fa-calendar-alt text-6xl text-white"></i>
+                                </div>
+                            @endif
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-maroon mb-2">{{ $event->title }}</h3>
+                                <p class="text-gray-600 mb-4">{{ $event->start_datetime->format('F j, Y') }} • {{ $event->start_datetime->format('h:i A') }}</p>
+                                <p class="text-gray-700 mb-4">{{ Str::limit($event->description, 100) }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+
+            <!-- Recently Added Events -->
+            <div class="mt-16">
+                <div class="text-center mb-8 fade-in">
+                    <h3 class="text-3xl font-bold text-maroon">Recently Added Events</h3>
+                    <p class="text-gray-600">Your most recent event creations</p>
+                </div>
+                <div id="recent-events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @if(isset($recentEvents) && $recentEvents->count() > 0)
+                        @foreach($recentEvents as $event)
+                            @php 
+                                $img = $event->featured_image_url ?? $event->featured_image; 
+                                $date = \Carbon\Carbon::parse($event->start_datetime);
+                            @endphp
+                            <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in">
+                                @if($img)
+                                    <img src="{{ url($img) }}" alt="{{ $event->title }}" class="w-full h-48 object-cover">
+                                @else
+                                    <div class="h-48 bg-gold flex items-center justify-center">
+                                        <i class="fas fa-bullhorn text-6xl text-maroon"></i>
+                                    </div>
+                                @endif
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-maroon mb-2">{{ $event->title }}</h3>
+                                    <p class="text-gray-600 mb-4">{{ $date->format('F j, Y') }} • {{ $date->format('h:i A') }}</p>
+                                    <p class="text-gray-700 mb-4">{{ Str::limit($event->description, 100) }}</p>
+                                    <a href="{{ route('events') }}" class="w-full inline-block text-center bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors">Manage Events</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="text-center py-12 fade-in col-span-full">
+                            <i class="fas fa-spinner fa-spin text-maroon text-4l mb-4"></i>
+                            <p class="text-gray-600">Loading recent events...</p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -479,34 +531,26 @@
             });
             animateCounter();
             initSlideshow();
-            fetchUpcomingEvents();
+            // Keep server-rendered events; disable auto-refresh to avoid flicker/overwrite
         });
 
         // Fetch upcoming events from API
         function fetchUpcomingEvents() {
-            fetch('/api/events/upcoming')
+            fetch('{{ route('events.upcoming') }}')
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data && data.success && Array.isArray(data.events) && data.events.length > 0) {
                         displayUpcomingEvents(data.events);
-                    } else {
-                        showNoEventsMessage();
-                    }
+                    } // else: keep server-rendered content
                 })
-                .catch(error => {
-                    console.error('Error fetching events:', error);
-                    showNoEventsMessage();
-                });
+                .catch(() => { /* keep server-rendered content on error */ });
         }
 
         // Display upcoming events in the container
         function displayUpcomingEvents(events) {
             const container = document.getElementById('upcoming-events-container');
             
-            if (events.length === 0) {
-                showNoEventsMessage();
-                return;
-            }
+            if (!events || events.length === 0) return; // keep existing content
 
             container.innerHTML = '';
             
@@ -549,8 +593,9 @@
             card.style.animationDelay = `${index * 0.2}s`;
             
             // Check if event has a featured image
-            const imageHtml = event.featured_image 
-                ? `<img src="${event.featured_image}" alt="${event.title}" class="w-full h-48 object-cover">`
+            const imageSrc = event.featured_image_url || event.featured_image;
+            const imageHtml = imageSrc 
+                ? `<img src="${imageSrc}" alt="${event.title}" class="w-full h-48 object-cover">`
                 : `<div class="h-48 bg-maroon flex items-center justify-center">
                       <i class="fas fa-${icon} text-6xl text-white"></i>
                    </div>`;
@@ -568,6 +613,51 @@
             `;
             
             return card;
+        }
+
+        // Fetch and display recent events (most recently created)
+        function fetchRecentEvents() {
+            fetch('{{ route('events.list') }}')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data || !data.success || !Array.isArray(data.events) || data.events.length === 0) {
+                        return; // keep server-rendered recent events
+                    }
+                    const container = document.getElementById('recent-events-container');
+                    container.innerHTML = '';
+                    data.events.forEach((event, index) => {
+                        const eventDate = new Date(event.start_datetime);
+                        const formattedDate = eventDate.toLocaleDateString('en-US', {
+                            month: 'long', day: 'numeric', year: 'numeric'
+                        });
+                        const formattedTime = eventDate.toLocaleTimeString('en-US', {
+                            hour: '2-digit', minute: '2-digit'
+                        });
+
+                        const imageSrc = event.featured_image_url || event.featured_image;
+                        const card = document.createElement('div');
+                        card.className = 'bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in';
+                        card.style.animationDelay = `${index * 0.1}s`;
+                        card.innerHTML = `
+                            ${imageSrc 
+                                ? `<img src="${imageSrc}" alt="${event.title}" class="w-full h-48 object-cover">`
+                                : `<div class=\"h-48 bg-gold flex items-center justify-center\">` +
+                                  `<i class=\"fas fa-bullhorn text-6xl text-maroon\"></i>` +
+                                  `</div>`
+                            }
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-maroon mb-2">${event.title}</h3>
+                                <p class="text-gray-600 mb-4">${formattedDate} • ${formattedTime}</p>
+                                <p class="text-gray-700 mb-4">${(event.description || '').toString().substring(0, 100)}${(event.description || '').length > 100 ? '...' : ''}</p>
+                                <a href="{{ route('events') }}" class="w-full inline-block text-center bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors">
+                                    Manage Events
+                                </a>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+                })
+                .catch(() => { /* keep server-rendered content on error */ });
         }
 
         // Show message when no events are available

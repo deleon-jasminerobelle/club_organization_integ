@@ -26,6 +26,12 @@
         return;
       }
 
+      // Client-side file size guard (4MB)
+      if (featuredImage && featuredImage.size > 4 * 1024 * 1024) {
+        alert('Image is too large. Please upload a file under 4MB.');
+        return;
+      }
+
       // Create FormData for file upload
       const formData = new FormData();
       formData.append('title', title);
@@ -38,7 +44,7 @@
 
       // Send to backend
       try {
-        const resp = await fetch('/events', {
+        const resp = await fetch('{{ route('events.store') }}', {
           method: 'POST',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -50,6 +56,8 @@
         if (!resp.ok || !data.success) {
           throw new Error('Failed to save event');
         }
+        // Use the server-saved image URL if available
+        var savedEvent = data.event || {};
       } catch (err) {
         alert('Saving to database failed. Please ensure XAMPP MySQL is running and .env DB settings are correct.');
         console.error(err);
@@ -61,12 +69,16 @@
       const card = document.createElement('div');
       card.className = 'bg-white rounded-2xl shadow-xl overflow-hidden card-hover';
       
-      // Check if event has a featured image
-      const imageHtml = featuredImage 
-        ? `<img src="${URL.createObjectURL(featuredImage)}" alt="${title}" class="w-full h-40 object-cover">`
-        : `<div class="h-40 bg-maroon flex items-center justify-center">
-             <i class="fas fa-calendar-alt text-5xl text-white"></i>
-           </div>`;
+      // Prefer the server-saved image URL so index will see the same URL
+      const serverImage = (savedEvent && (savedEvent.featured_image_url || savedEvent.featured_image)) || null;
+      const imageHtml = serverImage
+        ? `<img src="${serverImage}" alt="${title}" class="w-full h-40 object-cover">`
+        : (featuredImage
+            ? `<img src="${URL.createObjectURL(featuredImage)}" alt="${title}" class="w-full h-40 object-cover">`
+            : `<div class="h-40 bg-maroon flex items-center justify-center">
+                 <i class="fas fa-calendar-alt text-5xl text-white"></i>
+               </div>`
+          );
       
       card.innerHTML = `
         ${imageHtml}
@@ -102,6 +114,69 @@
         return `${dateStr} • ${timeStr}`;
       }
     }
+
+    // ===== Load existing upcoming events on page load =====
+    async function fetchExistingEvents() {
+      const container = document.getElementById('events-list');
+      container.innerHTML = `
+        <div class="text-center py-8 col-span-full">
+          <i class="fas fa-spinner fa-spin text-maroon text-2xl mb-2"></i>
+          <p class="text-gray-600">Loading events...</p>
+        </div>
+      `;
+      try {
+        // Use general list so recently created items show even if date is past or same-day
+        const resp = await fetch('{{ route('events.list') }}');
+        const data = await resp.json();
+        if (!resp.ok || !data.success) throw new Error('Failed to fetch events');
+
+        const events = data.events || [];
+        if (events.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-8 col-span-full">
+              <i class="fas fa-calendar-times text-maroon text-2xl mb-2"></i>
+              <p class="text-gray-600">No upcoming events yet.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = '';
+        for (const ev of events) {
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded-2xl shadow-xl overflow-hidden card-hover';
+
+          const imageSrc = ev.featured_image_url || ev.featured_image || null;
+          const evDate = new Date(ev.start_datetime);
+          const dateFormatted = evDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+          const timeFormatted = evDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+          card.innerHTML = `
+            ${imageSrc ? `<img src="${imageSrc}" alt="${ev.title}" class="w-full h-40 object-cover">` : `
+              <div class="h-40 bg-maroon flex items-center justify-center">
+                <i class="fas fa-calendar-alt text-5xl text-white"></i>
+              </div>
+            `}
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-maroon mb-2">${ev.title}</h3>
+              <p class="text-gray-600 mb-2">${dateFormatted} • ${timeFormatted}</p>
+              <p class="text-gray-700 mb-4">${(ev.description || '').toString()}</p>
+            </div>
+          `;
+          container.appendChild(card);
+        }
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `
+          <div class="text-center py-8 col-span-full">
+            <i class="fas fa-triangle-exclamation text-red-600 text-2xl mb-2"></i>
+            <p class="text-gray-600">Unable to load events.</p>
+          </div>
+        `;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', fetchExistingEvents);
   </script>
 </head>
 <body class="antialiased bg-gray-100">

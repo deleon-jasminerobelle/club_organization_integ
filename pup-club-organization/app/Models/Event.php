@@ -33,4 +33,23 @@ class Event extends Model
         'latitude' => 'float',
         'longitude' => 'float',
     ];
+
+    protected $appends = [
+        'featured_image_url',
+    ];
+
+    public function getFeaturedImageUrlAttribute()
+    {
+        if (empty($this->featured_image)) {
+            return null;
+        }
+
+        // If it's already an absolute URL, return as-is
+        if (preg_match('/^https?:\/\//i', $this->featured_image) === 1) {
+            return $this->featured_image;
+        }
+
+        // Ensure a proper URL for the stored path
+        return url($this->featured_image);
+    }
 }

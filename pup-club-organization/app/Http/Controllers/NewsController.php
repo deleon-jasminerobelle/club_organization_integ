@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Event;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Carbon\Carbon;
 
 class NewsController extends Controller
 {
@@ -46,14 +48,28 @@ class NewsController extends Controller
                 ->take(3)
                 ->get();
             $organizations = Organization::all();
+
+            // Server-side events for initial render (fallback if JS fetch fails)
+            $upcomingEvents = Event::whereDate('start_datetime', '>=', Carbon::today())
+                ->where('is_public', true)
+                ->where('status', 'scheduled')
+                ->orderBy('start_datetime', 'asc')
+                ->take(6)
+                ->get();
+
+            $recentEvents = Event::orderBy('created_at', 'desc')
+                ->take(6)
+                ->get();
         } catch (\Throwable $e) {
             // Graceful fallback if database is not reachable
             $news = new LengthAwarePaginator([], 0, 12, 1);
             $latestNews = collect([]);
             $organizations = collect([]);
+            $upcomingEvents = collect([]);
+            $recentEvents = collect([]);
         }
 
-        return view('index', compact('news', 'organizations', 'latestNews'));
+        return view('index', compact('news', 'organizations', 'latestNews', 'upcomingEvents', 'recentEvents'));
     }
 
     /**

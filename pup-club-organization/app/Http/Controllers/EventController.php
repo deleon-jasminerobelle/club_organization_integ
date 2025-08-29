@@ -20,7 +20,8 @@ class EventController extends Controller
             'date' => 'required|date',
             'time' => 'required',
             'description' => 'required|string',
-            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // increase limit to 4MB to reduce silent drops from PHP upload limits
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
         ]);
 
         if ($validator->fails()) {
@@ -101,16 +102,37 @@ class EventController extends Controller
 
     public function getUpcomingEvents()
     {
-        $upcomingEvents = Event::where('start_datetime', '>', Carbon::now())
+        $upcomingEvents = Event::whereDate('start_datetime', '>=', Carbon::today())
             ->where('is_public', true)
             ->where('status', 'scheduled')
             ->orderBy('start_datetime', 'asc')
             ->take(6)
-            ->get();
+            ->get()
+            ->map(function ($event) {
+                // Ensure frontend can rely on a valid URL for the image
+                $event->featured_image = $event->featured_image_url ?? $event->featured_image;
+                return $event;
+            });
 
         return response()->json([
             'success' => true,
             'events' => $upcomingEvents,
+        ]);
+    }
+
+    public function list()
+    {
+        $events = Event::orderBy('created_at', 'desc')
+            ->take(20)
+            ->get()
+            ->map(function ($event) {
+                $event->featured_image = $event->featured_image_url ?? $event->featured_image;
+                return $event;
+            });
+
+        return response()->json([
+            'success' => true,
+            'events' => $events,
         ]);
     }
 }
