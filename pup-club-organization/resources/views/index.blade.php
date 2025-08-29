@@ -313,43 +313,7 @@
                 @endif
             </div>
 
-            <!-- Recently Added Events -->
-            <div class="mt-16">
-                <div class="text-center mb-8 fade-in">
-                    <h3 class="text-3xl font-bold text-maroon">Recently Added Events</h3>
-                    <p class="text-gray-600">Your most recent event creations</p>
-                </div>
-                <div id="recent-events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    @if(isset($recentEvents) && $recentEvents->count() > 0)
-                        @foreach($recentEvents as $event)
-                            @php 
-                                $img = $event->featured_image_url ?? $event->featured_image; 
-                                $date = \Carbon\Carbon::parse($event->start_datetime);
-                            @endphp
-                            <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in">
-                                @if($img)
-                                    <img src="{{ url($img) }}" alt="{{ $event->title }}" class="w-full h-48 object-cover">
-                                @else
-                                    <div class="h-48 bg-gold flex items-center justify-center">
-                                        <i class="fas fa-bullhorn text-6xl text-maroon"></i>
-                                    </div>
-                                @endif
-                                <div class="p-6">
-                                    <h3 class="text-xl font-bold text-maroon mb-2">{{ $event->title }}</h3>
-                                    <p class="text-gray-600 mb-4">{{ $date->format('F j, Y') }} • {{ $date->format('h:i A') }}</p>
-                                    <p class="text-gray-700 mb-4">{{ Str::limit($event->description, 100) }}</p>
-                                    <a href="{{ route('events') }}" class="w-full inline-block text-center bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors">Manage Events</a>
-                                </div>
-                            </div>
-                        @endforeach
-                    @else
-                <div class="text-center py-12 fade-in col-span-full">
-                            <i class="fas fa-spinner fa-spin text-maroon text-4l mb-4"></i>
-                            <p class="text-gray-600">Loading recent events...</p>
-                        </div>
-                    @endif
-                </div>
-            </div>
+
         </div>
     </section>
 
