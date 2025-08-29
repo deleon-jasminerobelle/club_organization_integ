@@ -53,7 +53,7 @@
                         <i class="fas fa-envelope mr-2"></i>Email Address
                     </label>
                     <div class="relative">
-                        <input type="text" id="username" name="username" required 
+                        <input type="email" id="username" name="username" required 
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#800000] focus:border-transparent transition-all duration-200 pl-10"
                                placeholder="Enter your email address">
                         <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
