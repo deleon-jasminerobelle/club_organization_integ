@@ -44,7 +44,7 @@
 
       // Send to backend
       try {
-        const resp = await fetch('{{ route('events.store') }}', {
+        const resp = await fetch("{{ route('events.store') }}", {
           method: 'POST',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -126,7 +126,7 @@
       `;
       try {
         // Use general list so recently created items show even if date is past or same-day
-        const resp = await fetch('{{ route('events.list') }}');
+        const resp = await fetch("{{ route('events.list') }}");
         const data = await resp.json();
         if (!resp.ok || !data.success) throw new Error('Failed to fetch events');
 

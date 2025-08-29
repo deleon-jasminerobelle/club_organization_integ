@@ -556,7 +556,7 @@
 
         // Fetch upcoming events from API
         function fetchUpcomingEvents() {
-            fetch('{{ route('events.upcoming') }}')
+            fetch("{{ route('events.upcoming') }}")
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.success && Array.isArray(data.events) && data.events.length > 0) {
@@ -637,7 +637,7 @@
 
         // Fetch and display recent events (most recently created)
         function fetchRecentEvents() {
-            fetch('{{ route('events.list') }}')
+            fetch("{{ route('events.list') }}")
                 .then(response => response.json())
                 .then(data => {
                     if (!data || !data.success || !Array.isArray(data.events) || data.events.length === 0) {
