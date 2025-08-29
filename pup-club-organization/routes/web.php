@@ -40,6 +40,7 @@ Route::get('/gallery', function () {
     return view('gallery', ['media' => $media]);
 })->name('gallery');
 
+// Route for club page
 Route::get('/club', function() {
     return view('club');
 })->name('club');
@@ -106,6 +107,7 @@ Route::get('/api/events/upcoming', [EventController::class, 'getUpcomingEvents']
 Route::get('/api/events', [EventController::class, 'list'])->name('events.list');
 
 
+// Route for logout
 Route::post('/logout', function (Request $request) {
     $request->session()->forget('user');
     return redirect('/login')->with('success', 'Logged out successfully.');

@@ -61,9 +61,14 @@
                                          <a href="{{ route('events') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
                     <a href="{{ route('news.list') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
                     <a href="{{ route('gallery') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
+<<<<<<< HEAD
                                          <a href="{{ route('about') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
             
                 
+=======
+                    <a href="{{ route('index') }}#about" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
+            
+>>>>>>> 7d41b3ce2b683db4e70d977e6d7025ed2e15188b
                 <!-- Logout Button -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
