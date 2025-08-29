@@ -132,12 +132,12 @@
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in" style="animation-delay: 0.6s;">
-                <button class="bg-gold text-maroon px-8 py-4 rounded-full font-semibold hover:bg-yellow-300 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <a href="{{ route('club') }}" class="bg-gold text-maroon px-8 py-4 rounded-full font-semibold hover:bg-yellow-300 transform hover:scale-105 transition-all duration-300 shadow-lg text-center">
                     Explore Clubs
-                </button>
-                <button class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-maroon transform hover:scale-105 transition-all duration-300">
+                </a>
+                <a href="/signup" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-maroon transform hover:scale-105 transition-all duration-300 text-center">
                     Join Now
-                </button>
+                </a>
             </div>
 
             <div class="mt-16 animate-bounce-slow">
