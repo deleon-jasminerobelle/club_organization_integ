@@ -307,8 +307,8 @@
                                 <h3 class="text-xl font-bold text-maroon mb-2">{{ $event->title }}</h3>
                                 <p class="text-gray-600 mb-4">{{ $event->start_datetime->format('F j, Y') }} • {{ $event->start_datetime->format('h:i A') }}</p>
                                 <p class="text-gray-700 mb-4">{{ Str::limit($event->description, 100) }}</p>
-                            </div>
-                        </div>
+                </div>
+            </div>
                     @endforeach
                 @endif
             </div>
@@ -590,7 +590,7 @@
                     <h3 class="text-xl font-bold text-maroon mb-2">${event.title}</h3>
                     <p class="text-gray-600 mb-4">${formattedDate} • ${formattedTime}</p>
                     <p class="text-gray-700 mb-4">${event.description.substring(0, 100)}${event.description.length > 100 ? '...' : ''}</p>
-                    <button class="w-full bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors">
+                    <button class="w-full bg-maroon text-white py-2 rounded-lg hover:bg-red-800 transition-colors" onclick="showEventDetails('${event.title}', '${event.start_datetime}', '${event.description}', '${imageSrc || ''}')">
                         View Details
                     </button>
                 </div>
@@ -826,6 +826,103 @@
             }
         `;
         document.head.appendChild(style);
+    </script>
+
+    <!-- Event Details Modal -->
+    <div id="event-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-maroon" id="modal-event-title"></h2>
+                    <button onclick="closeEventModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">
+                        &times;
+                    </button>
+                </div>
+                
+                <div id="modal-event-image" class="mb-4"></div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-semibold text-gray-700 mb-1">Date & Time:</h3>
+                        <p class="text-gray-900" id="modal-event-datetime"></p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-gray-700 mb-1">Description:</h3>
+                        <p class="text-gray-900" id="modal-event-description"></p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <button onclick="closeEventModal()" class="bg-maroon text-white px-6 py-2 rounded-lg hover:bg-red-800 transition-colors">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Event Details Modal Functions
+        function showEventDetails(title, startDatetime, description, imageSrc) {
+            const modal = document.getElementById('event-modal');
+            const modalTitle = document.getElementById('modal-event-title');
+            const modalDatetime = document.getElementById('modal-event-datetime');
+            const modalDescription = document.getElementById('modal-event-description');
+            const modalImage = document.getElementById('modal-event-image');
+            
+            // Set modal content
+            modalTitle.textContent = title;
+            
+            // Format date and time
+            const eventDate = new Date(startDatetime);
+            const formattedDate = eventDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            const formattedTime = eventDate.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            modalDatetime.textContent = `${formattedDate} at ${formattedTime}`;
+            
+            modalDescription.textContent = description;
+            
+            // Set image
+            if (imageSrc) {
+                modalImage.innerHTML = `<img src="${imageSrc}" alt="${title}" class="w-full h-64 object-cover rounded-lg">`;
+            } else {
+                modalImage.innerHTML = `<div class="w-full h-64 bg-maroon flex items-center justify-center rounded-lg">
+                    <i class="fas fa-calendar-alt text-6xl text-white"></i>
+                </div>`;
+            }
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeEventModal() {
+            const modal = document.getElementById('event-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('event-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEventModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeEventModal();
+            }
+        });
     </script>
 </body>
 </html>

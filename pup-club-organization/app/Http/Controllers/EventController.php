@@ -102,8 +102,7 @@ class EventController extends Controller
 
     public function getUpcomingEvents()
     {
-        $upcomingEvents = Event::whereDate('start_datetime', '>=', Carbon::today())
-            ->where('is_public', true)
+        $upcomingEvents = Event::where('is_public', true)
             ->where('status', 'scheduled')
             ->orderBy('start_datetime', 'asc')
             ->take(6)

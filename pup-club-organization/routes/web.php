@@ -106,6 +106,24 @@ Route::get('/events/upcoming', [EventController::class, 'getUpcomingEvents']);
 Route::get('/api/events/upcoming', [EventController::class, 'getUpcomingEvents'])->name('events.upcoming');
 Route::get('/api/events', [EventController::class, 'list'])->name('events.list');
 
+// Debug route to check events
+Route::get('/debug/events', function() {
+    try {
+        $events = \App\Models\Event::all();
+        return response()->json([
+            'success' => true,
+            'count' => $events->count(),
+            'events' => $events->toArray()
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+    }
+});
+
 
 // Route for logout
 Route::post('/logout', function (Request $request) {
