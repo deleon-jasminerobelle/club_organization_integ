@@ -50,8 +50,7 @@ class NewsController extends Controller
             $organizations = Organization::all();
 
             // Server-side events for initial render (fallback if JS fetch fails)
-            $upcomingEvents = Event::whereDate('start_datetime', '>=', Carbon::today())
-                ->where('is_public', true)
+            $upcomingEvents = Event::where('is_public', true)
                 ->where('status', 'scheduled')
                 ->orderBy('start_datetime', 'asc')
                 ->take(6)

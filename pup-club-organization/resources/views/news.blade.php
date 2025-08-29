@@ -44,10 +44,8 @@
               <a href="{{ route('news.list') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
               <a href="{{ route('gallery') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
               <a href="{{ route('about') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
-<<<<<<< HEAD
       
-=======
->>>>>>> 7d41b3ce2b683db4e70d977e6d7025ed2e15188b
+
          
               <!-- Logout Button -->
                 <form method="POST" action="{{ route('logout') }}">
