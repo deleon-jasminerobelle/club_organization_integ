@@ -44,6 +44,11 @@ Route::get('/club', function() {
     return view('club');
 })->name('club');
 
+// About page
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
 // Media routes
 Route::get('/media/create', [MediaController::class, 'create'])->name('media.create');
 Route::post('/media', [MediaController::class, 'store'])->name('media.store');
