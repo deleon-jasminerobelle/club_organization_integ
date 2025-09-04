@@ -30,7 +30,7 @@ Route::get('/signup', function () {
 Route::get('/api-test', [AuthController::class, 'testApiConnection']);
 
 // Route for index page - using NewsController
-Route::get('/index', [NewsController::class, 'index'])->middleware('session.auth')->name('index');
+Route::get('/index', [NewsController::class, 'index'])->name('index');
 
 // New route for gallery page
 Route::get('/gallery', function () {
@@ -56,7 +56,13 @@ Route::post('/media', [MediaController::class, 'store'])->name('media.store');
 
 // News routes
 Route::get('/news', [NewsController::class, 'newsList'])->name('news.list');
+Route::get('/news/add', [NewsController::class, 'create'])->name('news.create');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
+
+// Profile route
+Route::get('/profile', function () {
+    return view('profile');
+})->middleware('session.auth')->name('profile');
 
 // Announcements route
 Route::get('/announcements', [NewsController::class, 'announcements'])->name('announcements');
@@ -99,7 +105,7 @@ Route::get('/test-media', function () {
 // Route for events page
 Route::get('/events', function ()  {
     return view('events');
-})->middleware('session.auth')->name('events');
+})->name('events');
 
 use App\Http\Controllers\EventController;
 Route::post('/events', [EventController::class, 'store'])->name('events.store');
@@ -133,3 +139,26 @@ Route::post('/logout', function (Request $request) {
     $request->session()->forget('user');
     return redirect('/login')->with('success', 'Logged out successfully.');
 })->name('logout');
+
+// Temporary route to create test user for login testing
+Route::get('/create-test-user', function () {
+    try {
+        $user = new \App\Models\User();
+        $user->name = 'Test User';
+        $user->email = 'test@example.com';
+        $user->password = \Illuminate\Support\Facades\Hash::make('password123');
+        $user->save();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Test user created',
+            'email' => 'test@example.com',
+            'password' => 'password123'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'error' => $e->getMessage()
+        ]);
+    }
+});

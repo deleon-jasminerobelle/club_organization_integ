@@ -40,14 +40,16 @@
         <div class="hidden md:flex space-x-8">
               <a href="{{ route('index') }}#home" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
               <a href="{{ route('club') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a>
-              <a href="{{ route('events') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
+              <a href="{{ route('events') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a>
               <a href="{{ route('news.list') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
               <a href="{{ route('announcements') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Announcements</a>
               <a href="{{ route('gallery') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
               <a href="{{ route('about') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
-      
 
-         
+              <a href="{{ route('profile') }}" class="text-red-700 hover:text-red-800 transition-all duration-300 font-medium hover:scale-110" title="Profile">
+                <i class="fas fa-user-circle text-xl"></i>
+              </a>
+
               <!-- Logout Button -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -108,53 +110,17 @@
       </div>
     </div>
 
-    <!-- ADD NEWS FORM -->
+    <!-- ADD NEWS BUTTON -->
     <section class="bg-white p-6 rounded-xl shadow-md mb-10">
-      <h2 class="text-2xl font-bold text-red-700 mb-4">Add New Announcement</h2>
-      <form id="newsForm" class="space-y-4">
-        @csrf
-        <div class="grid md:grid-cols-2 gap-4">
-          <div>
-            <label class="block font-semibold mb-1">Organization</label>
-            <select name="organization_id" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500">
-              <option value="">Select Organization</option>
-              @foreach($organizations as $org)
-                <option value="{{ $org->id }}">{{ $org->name }}</option>
-              @endforeach
-            </select>
-          </div>
-          <div>
-            <label class="block font-semibold mb-1">Type</label>
-            <select name="type" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500">
-              <option value="announcement">Announcement</option>
-              <option value="news">News</option>
-              <option value="event">Event</option>
-              <option value="general">General</option>
-            </select>
-          </div>
-        </div>
+      <div class="flex justify-between items-center">
         <div>
-          <label class="block font-semibold mb-1">Title</label>
-          <input type="text" name="title" required placeholder="News title" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500">
+          <h2 class="text-2xl font-bold text-red-700">Manage News</h2>
+          <p class="text-gray-600">Add new news items or manage existing ones</p>
         </div>
-        <div>
-          <label class="block font-semibold mb-1">Content</label>
-          <textarea name="content" required placeholder="News content..." rows="4" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
-        </div>
-        <div>
-          <label class="block font-semibold mb-1">Excerpt (Optional)</label>
-          <textarea name="excerpt" placeholder="Brief excerpt..." rows="2" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
-        </div>
-        <div>
-          <label class="block font-semibold mb-1">Featured Image URL (Optional)</label>
-          <input type="url" name="featured_image" placeholder="https://example.com/image.jpg" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500">
-        </div>
-        <div class="text-right">
-          <button type="submit" class="bg-red-700 text-white px-6 py-3 rounded-lg hover:bg-red-800 transition-colors">
-            <i class="fas fa-plus mr-2"></i>Add News
-          </button>
-        </div>
-      </form>
+        <a href="{{ route('news.create') }}" class="bg-red-700 text-white px-6 py-3 rounded-lg hover:bg-red-800 transition-colors">
+          <i class="fas fa-plus mr-2"></i>Add New News
+        </a>
+      </div>
     </section>
 
     <!-- NEWS LIST -->
@@ -225,7 +191,6 @@
   <!-- JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const form = document.getElementById('newsForm');
       const filters = {
         organization: document.getElementById('organizationFilter'),
         type: document.getElementById('typeFilter'),
@@ -233,48 +198,10 @@
       };
       const clearBtn = document.getElementById('clearFilters');
 
-      // Form submission
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        const submitBtn = form.querySelector('button[type="submit"]');
-        
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Adding...';
-
-        try {
-          const response = await fetch('/api/news', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData ? Object.fromEntries(formData) : {})
-          });
-
-          const data = await response.json();
-
-          if (data.success) {
-            alert('News added successfully!');
-            form.reset();
-            location.reload();
-          } else {
-            alert('Error: ' + Object.values(data.errors).join(', '));
-          }
-        } catch (error) {
-          alert('An error occurred. Please try again.');
-          console.error('Error:', error);
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = '<i class="fas fa-plus mr-2"></i>Add News';
-        }
-      });
-
       // Filter functionality
       function applyFilters() {
         const params = new URLSearchParams();
-        
+
         if (filters.organization.value) params.set('organization', filters.organization.value);
         if (filters.type.value) params.set('type', filters.type.value);
         if (filters.search.value) params.set('search', filters.search.value);

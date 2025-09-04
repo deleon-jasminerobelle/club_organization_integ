@@ -13,9 +13,7 @@ use Carbon\Carbon;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the news.
-     */
+   
     public function index(Request $request)
     {
         try {
@@ -49,7 +47,7 @@ class NewsController extends Controller
                 ->get();
             $organizations = Organization::all();
 
-            // Server-side events for initial render (fallback if JS fetch fails)
+
             $upcomingEvents = Event::where('is_public', true)
                 ->where('status', 'scheduled')
                 ->orderBy('start_datetime', 'asc')
@@ -60,7 +58,7 @@ class NewsController extends Controller
                 ->take(6)
                 ->get();
         } catch (\Throwable $e) {
-            // Graceful fallback if database is not reachable
+
             $news = new LengthAwarePaginator([], 0, 12, 1);
             $latestNews = collect([]);
             $organizations = collect([]);
@@ -71,9 +69,13 @@ class NewsController extends Controller
         return view('index', compact('news', 'organizations', 'latestNews', 'upcomingEvents', 'recentEvents'));
     }
 
-    /**
-     * Display a listing of the news for the news page.
-     */
+    public function create()
+    {
+        $organizations = Organization::all();
+        return view('add-news', compact('organizations'));
+    }
+
+    
     public function newsList(Request $request)
     {
         try {
@@ -102,7 +104,7 @@ class NewsController extends Controller
             $news = $query->paginate(12);
             $organizations = Organization::all();
         } catch (\Throwable $e) {
-            // Create a mock paginator with empty data to maintain the expected interface
+            
             $news = new LengthAwarePaginator([], 0, 12, 1);
             $organizations = collect([]);
         }
@@ -110,9 +112,7 @@ class NewsController extends Controller
         return view('news', compact('news', 'organizations'));
     }
 
-    /**
-     * Store a newly created news in storage.
-     */
+    
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -151,9 +151,7 @@ class NewsController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified news.
-     */
+    
     public function show($slug)
     {
         $news = News::with(['organization', 'user'])
@@ -166,9 +164,7 @@ class NewsController extends Controller
         return view('news-detail', compact('news'));
     }
 
-    /**
-     * Get news by organization.
-     */
+    
     public function byOrganization($organizationId)
     {
         $news = News::with(['organization', 'user'])
@@ -180,9 +176,7 @@ class NewsController extends Controller
         return response()->json($news);
     }
 
-    /**
-     * Get news by type.
-     */
+    
     public function byType($type)
     {
         $news = News::with(['organization', 'user'])
@@ -194,9 +188,7 @@ class NewsController extends Controller
         return response()->json($news);
     }
 
-    /**
-     * Increment view count for a news item.
-     */
+    
     public function incrementViews($id)
     {
         $news = News::findOrFail($id);
@@ -205,9 +197,7 @@ class NewsController extends Controller
         return response()->json(['views' => $news->view_count]);
     }
 
-    /**
-     * Display a listing of announcements.
-     */
+   
     public function announcements(Request $request)
     {
         try {
@@ -233,7 +223,7 @@ class NewsController extends Controller
             $announcements = $query->paginate(12);
             $organizations = Organization::all();
         } catch (\Throwable $e) {
-            // Create a mock paginator with empty data to maintain the expected interface
+            
             $announcements = new LengthAwarePaginator([], 0, 12, 1);
             $organizations = collect([]);
         }

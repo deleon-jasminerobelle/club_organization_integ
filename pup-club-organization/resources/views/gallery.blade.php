@@ -58,10 +58,15 @@
                 <div class="hidden md:flex space-x-8">
                     <a href="{{ route('index') }}#home" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
                     <a href="{{ route('club') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a>
-                                         <a href="{{ route('events') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
+                                         <a href="{{ route('events') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a>
                     <a href="{{ route('news.list') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
                     <a href="{{ route('gallery') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
                      <a href="{{ route('about') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
+
+                    <a href="{{ route('profile') }}" class="text-red-700 hover:text-red-800 transition-all duration-300 font-medium hover:scale-110" title="Profile">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </a>
+
                 <!-- Logout Button -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -72,9 +77,33 @@
             </div>
 
             <div class="md:hidden">
-                <button class="text-maroon focus:outline-none">
+                <button id="mobile-menu-button" class="text-maroon focus:outline-none">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation (Hidden by default) -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="{{ route('index') }}#home" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">Home</a>
+                <a href="{{ route('club') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">Clubs</a>
+                <a href="{{ route('events') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">Events</a>
+                <a href="{{ route('news.list') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">News & Media</a>
+                <a href="{{ route('gallery') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">Gallery</a>
+                <a href="{{ route('about') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">About</a>
+
+                <a href="{{ route('profile') }}" class="block px-3 py-2 text-red-700 hover:text-red-800 font-medium">
+                    <i class="fas fa-user-circle mr-2"></i>Profile
+                </a>
+
+                <!-- Mobile Logout Button -->
+                <form method="POST" action="{{ route('logout') }}" class="border-t border-gray-200 pt-2 mt-2">
+                    @csrf
+                    <button type="submit" class="block w-full text-left px-3 py-2 text-maroon hover:text-red-800 font-medium">
+                        Logout
+                    </button>
+                </form>
             </div>
         </div>
     </div>

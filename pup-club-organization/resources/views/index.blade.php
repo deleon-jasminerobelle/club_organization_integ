@@ -87,12 +87,16 @@
                 <div class="hidden md:flex space-x-8">
                     <a href="{{ route('index') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Home</a>
                         <a href="{{ route('club') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Clubs</a>
-                        <a href="{{ route('events') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a> 
+                        <a href="{{ route('events') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Events</a>
                         <a href="{{ route('news.list') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">News & Media</a>
                         <a href="{{ route('announcements') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Announcements</a>
                         <a href="{{ route('gallery') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">Gallery</a>
                         <a href="{{ route('about') }}" class="text-maroon hover:text-red-800 transition-all duration-300 font-medium hover:scale-110">About</a>
-                    
+
+                <a href="{{ route('profile') }}" class="text-red-700 hover:text-red-800 transition-all duration-300 font-medium hover:scale-110" title="Profile">
+                    <i class="fas fa-user-circle text-xl"></i>
+                </a>
+
                 <!-- Logout Button -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -117,10 +121,10 @@
                     <a href="{{ route('club') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">Clubs</a>
                     <a href="{{ route('events') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">Events</a>
                     <a href="{{ route('news.list') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">News & Media</a>
-                    <a href="{{ route('announcements') }}" class="block px-3 py-2 text-maroon hover:text-red-极速800 font-medium">Announcements</a>
+                    <a href="{{ route('announcements') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">Announcements</a>
                     <a href="{{ route('gallery') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">Gallery</a>
                     <a href="{{ route('about') }}" class="block px-3 py-2 text-maroon hover:text-red-800 font-medium">About</a>
-                    
+
                     <!-- Mobile Logout Button -->
                     <form method="POST" action="{{ route('logout') }}" class="border-t border-gray-200 pt-2 mt-2">
                         @csrf
@@ -128,6 +132,10 @@
                             Logout
                         </button>
                     </form>
+
+                    <a href="{{ route('profile') }}" class="block px-3 py-2 text-red-700 hover:text-red-800 font-medium" title="Profile">
+                        <i class="fas fa-user-circle mr-2"></i>Profile
+                    </a>
             </div>
         </div>
     </div>

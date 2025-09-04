@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
 class EventController extends Controller
+//IMAGE FETCH
 {
     public function store(Request $request)
     {
@@ -20,7 +21,6 @@ class EventController extends Controller
             'date' => 'required|date',
             'time' => 'required',
             'description' => 'required|string',
-            // increase limit to 4MB to reduce silent drops from PHP upload limits
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
         ]);
 
@@ -33,7 +33,7 @@ class EventController extends Controller
 
         $start = $request->input('date') . ' ' . $request->input('time');
 
-        // Ensure foreign keys exist (create defaults if missing)
+        // CALLING NG FOREIGN KEY
         $userId = auth()->id();
         if (!$userId) {
             $existingUser = User::query()->first();
@@ -49,7 +49,7 @@ class EventController extends Controller
 
         $org = Organization::query()->first();
         if (!$org) {
-            // Ensure there is at least one category for the FK constraint
+            // FK
             $category = Category::query()->first();
             if (!$category) {
                 $category = Category::create([
@@ -70,7 +70,7 @@ class EventController extends Controller
             ]);
         }
 
-        // Handle featured image upload
+        // Handle image
         $featuredImagePath = null;
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');

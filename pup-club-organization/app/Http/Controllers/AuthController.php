@@ -17,50 +17,57 @@ class AuthController extends Controller
     
   public function login(Request $request)
 {
-    // Validate username field
+    // Validate login fields
     $request->validate([
-        'username' => 'required|string',
+        'username' => 'required|email',
+        'password' => 'required|string|min:6',
     ]);
 
-    $apiUrl = env('API_URL', 'https://pupt-registration.site');
-    $apiKey = env('API_KEY');
-
-    $headers = [];
-    if (!empty($apiKey)) {
-        $headers['X-API-Key'] = $apiKey;
-    }
-
-    // Call API with username
-    $response = Http::withHeaders($headers)->get("{$apiUrl}/api/students", [
-        'username' => $request->username,
+    // Debug logging
+    Log::info('Login attempt', [
+        'email' => $request->username,
+        'password_provided' => !empty($request->password),
     ]);
 
-    if ($response->successful()) {
-        $students = $response->json();
+    // Attempt to find user by email
+    $user = \App\Models\User::where('email', $request->username)->first();
 
-        if (is_array($students) && count($students) > 0) {
-            // Save session
+    if ($user) {
+        Log::info('User found', [
+            'user_id' => $user->id,
+            'user_email' => $user->email,
+            'has_password' => !empty($user->password),
+        ]);
+        
+        if (\Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
+            Log::info('Password matches - authentication successful');
+            
+            // Authentication successful
             session([
                 'user' => [
-                    'username' => $request->username,
-                    'name' => $students[0]['first_name'] ?? $students[0]['name'] ?? 'User',
+                    'id' => $user->id,
+                    'username' => $user->email,
+                    'name' => $user->name,
                     'authenticated' => true,
                 ]
             ]);
 
             return redirect()->route('index')->with('success', 'Login successful!');
         } else {
-            return back()->withErrors(['login' => 'No account found with this username.']);
+            Log::warning('Password does not match');
         }
     } else {
-        return back()->withErrors(['login' => 'Network error. Please try again later.']);
+        Log::warning('User not found with email: ' . $request->username);
     }
+
+    // Authentication failed
+    return back()->withErrors(['login' => 'Invalid email or password.']);
 }
 
 
     public function testApiConnection()
     {
-        $apiUrl = env('API_URL', 'http://pupt-registration.site');
+        $apiUrl = env('API_URL', 'https://pupt-registration.site');
         $apiKey = env('API_KEY');
         Log::info('AuthController@testApiConnection using API key', [
             'present' => !empty($apiKey),
@@ -116,7 +123,7 @@ class AuthController extends Controller
             'preview' => is_string($apiKey) && strlen($apiKey) >= 10 ? substr($apiKey, 0, 4) . '...' . substr($apiKey, -6) : $apiKey,
         ]);
 
-        // Validate the incoming request
+        // ADD STUDENT USER
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'first_name' => 'required|string|min:2|regex:/^[a-zA-Z\s]+$/',
@@ -142,7 +149,6 @@ class AuthController extends Controller
             ], 422);
         }
 
-        // Log the signup attempt
         Log::info('Signup attempt', [
             'email' => $request->email,
             'student_number' => $request->student_number,
@@ -161,7 +167,7 @@ class AuthController extends Controller
                 'Content-Type' => 'application/json',
             ])->post($apiUrl . '/api/students', $request->all());
 
-            // Log the API response
+            // Login API
             Log::info('Signup API Response', [
                 'status' => $response->status(),
                 'body' => $response->body(),
